@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ImagePicker</string>
+    <string name="finish">完成</string>
+    <string name="title_activity_base">BaseActivity</string>
+</resources>

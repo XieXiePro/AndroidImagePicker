@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="dialog_bottom_show_animation_style" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_bottom_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_bottom_exit</item>
+    </style>
+
+    <style name="dialog_center_show_animation_style" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_center_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_center_exit</item>
+    </style>
+
+    <style name="confirm_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+
+    </style>
+</resources>
