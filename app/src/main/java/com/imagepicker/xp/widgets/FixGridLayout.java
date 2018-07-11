@@ -112,28 +112,5 @@ public class FixGridLayout extends ViewGroup {
         // 不需要调用父类的方法
         // super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
-//
-//    /**
-//     * 为控件添加边框
-//     */
-//    @Override
-//    protected void dispatchDraw(Canvas canvas) {
-//        // 获取布局控件宽高
-//        int width = getWidth();
-//        int height = getHeight();
-//        // 创建画笔
-//        Paint mPaint = new Paint();
-//        // 设置画笔的各个属性
-//        mPaint.setColor(Color.BLUE);
-//        mPaint.setStyle(Paint.Style.STROKE);
-//        mPaint.setStrokeWidth(10);
-//        mPaint.setAntiAlias(true);
-//        // 创建矩形框
-//        Rect mRect = new Rect(0, 0, width, height);
-//        // 绘制边框
-//        canvas.drawRect(mRect, mPaint);
-//        // 最后必须调用父类的方法
-//        super.dispatchDraw(canvas);
-//    }
 
 }

@@ -7,39 +7,36 @@
     android:orientation="vertical"
     tools:context="com.imagepicker.xp.MainActivity">
 
-    <include
-    layout="@layout/global_title_bar_layout" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:orientation="vertical"
-    >
+    <include layout="@layout/global_title_bar_layout" />
 
-    <com.imagepicker.xp.widgets.FixGridLayout
-        android:id="@+id/id_layout_fix_grid"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:text="上传人才图片，(最多可添加三张)"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="上传图片(最多可添加三张)"
+            android:textSize="15sp" />
+
+        <com.imagepicker.xp.widgets.FixGridLayout
+            android:id="@+id/id_layout_fix_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_save"
-        android:layout_marginTop="15dp"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        android:text="保存"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
         android:background="@drawable/shape_btn_bg"
-        />
-
-</LinearLayout>
-
+        android:text="保存" />
 
 </LinearLayout>
