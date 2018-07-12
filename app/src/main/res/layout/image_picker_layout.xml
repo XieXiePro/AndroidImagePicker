@@ -31,8 +31,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
+            android:layout_gravity="center"
             android:text="提示"
-            android:textColor="@color/C9"
+            android:textColor="@color/colorAccent"
             android:textSize="13sp" />
     </LinearLayout>
 </LinearLayout>

@@ -15,5 +15,6 @@ public class ImagePickerActivity extends BaseActivity {
         ImagePickerLayout idImagePickerContainer =(ImagePickerLayout)findViewById(R.id.id_image_picker_container);
         idImagePickerContainer.setTitle("上传图片");
         idImagePickerContainer.setTip("最多3张");
+        idImagePickerContainer.setSizePhotoNum(3);
     }
 }
