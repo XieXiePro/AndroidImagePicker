@@ -12,9 +12,8 @@ public class ImagePickerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_picker_activity);
 
-        final ImagePickerLayout.Builder builder = new ImagePickerLayout.Builder(this);
-        builder.setTitle("上传图片");
-        builder.setTip("最多3张");
-        builder.create();
+        ImagePickerLayout idImagePickerContainer =(ImagePickerLayout)findViewById(R.id.id_image_picker_container);
+        idImagePickerContainer.setTitle("上传图片");
+        idImagePickerContainer.setTip("最多3张");
     }
 }
