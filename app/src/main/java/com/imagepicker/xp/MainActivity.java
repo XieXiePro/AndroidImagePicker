@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.image_picker_layout);
         initView();
         testForNet();
     }
@@ -104,23 +104,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void initView() {
         setTitle("图片选择器");
 
-        mBtn = (Button) findViewById(R.id.btn_save);
-
-        mBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                testForNet();
-                if (viewMode == 1) {
-                    viewMode = 2;
-                    setViewByFlag(2);
-                } else if (viewMode == 2 || viewMode == 3) {
-                    viewMode = 1;
-                    setViewByFlag(1);
-                }
-            }
-        });
+//        mBtn = (Button) findViewById(R.id.btn_save);
+//
+//        mBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                testForNet();
+//                if (viewMode == 1) {
+//                    viewMode = 2;
+//                    setViewByFlag(2);
+//                } else if (viewMode == 2 || viewMode == 3) {
+//                    viewMode = 1;
+//                    setViewByFlag(1);
+//                }
+//            }
+//        });
         //图片容器
-        mPhotoContainer = (FixGridLayout) findViewById(R.id.id_layout_fix_grid);
+        mPhotoContainer = (FixGridLayout) findViewById(R.id.image_picker_container);
         mPhotoContainer.setmCellHeight(mPhotoItemWidth);
         mPhotoContainer.setmCellWidth(mPhotoItemWidth);
         mPhotoContainer.setmCellCount(SIZE_PHOTO_NUM);

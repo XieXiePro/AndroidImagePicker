@@ -67,6 +67,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="无照片"
-        android:textColor="@color/block" />
+        android:textColor="@color/black" />
 
 </RelativeLayout>
