@@ -3,13 +3,15 @@
     android:id="@+id/image_picker_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
     <com.imagepicker.xp.widgets.ImagePickerLayout
-        android:id="@+id/id_image_picker_container"
+        android:id="@+id/id_image_picker_container_idcard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
