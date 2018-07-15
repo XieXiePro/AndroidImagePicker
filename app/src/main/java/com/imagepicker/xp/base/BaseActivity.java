@@ -224,9 +224,6 @@ public class BaseActivity extends FragmentActivity {
         }
     }
 
-
-
-
     /**
      * 大图浮层展示
      *

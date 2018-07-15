@@ -29,7 +29,7 @@ public class ImagePickerLayout extends LinearLayout {
     private ImagePicker imagePicker;
 
     public interface ImagePicker {
-        void setSelectDialog();
+        void setSelectDialog(View imagePickerView, ArrayList<ImageItem> mImageselectList);
 
         void toPhotoPreview(int index, ArrayList<ImageItem> mImageselectList);
     }
@@ -75,7 +75,31 @@ public class ImagePickerLayout extends LinearLayout {
     private final ImageLoader mImageLoader = ImageLoader.getInstance();
 
     private ArrayList<Object> files;
+    /**
+     * 存放选择图片集合,需区分选择控件位置
+     */
+    private ArrayList<ImageItem> mImageselectList = new ArrayList<>();
 
+    /**
+     * 存放选择图片集合,需区分选择控件位置
+     */
+    private View imagePickerView;
+
+    public View getImagePickerView() {
+        return imagePickerView;
+    }
+
+    public void setImagePickerView(View imagePickerView) {
+        this.imagePickerView = imagePickerView;
+    }
+
+    public ArrayList<ImageItem> getmImageselectList() {
+        return mImageselectList;
+    }
+
+    public void setmImageselectList(ArrayList<ImageItem> mImageselectList) {
+        this.mImageselectList = mImageselectList;
+    }
 
     public String getTitle() {
         return title;
@@ -134,7 +158,7 @@ public class ImagePickerLayout extends LinearLayout {
         imageLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagePicker.setSelectDialog();
+                imagePicker.setSelectDialog(imagePickerView, mImageselectList);
             }
         });
         imagePickerContainer.addView(photoView, layoutParams);
@@ -205,11 +229,7 @@ public class ImagePickerLayout extends LinearLayout {
         });
 
         ImageView deleteImage = (ImageView) photoView.findViewById(R.id.item_grid_img_delete);
-//        if (viewMode == 1) {
-//            deleteImage.setVisibility(View.INVISIBLE);
-//        } else {
         deleteImage.setVisibility(View.VISIBLE);
-//        }
         deleteImage.setTag(photoView);
         deleteImage.setOnClickListener(new View.OnClickListener() {
             @Override

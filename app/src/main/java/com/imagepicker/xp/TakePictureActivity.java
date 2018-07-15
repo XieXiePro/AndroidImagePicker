@@ -18,13 +18,16 @@ import java.util.List;
 
 public class TakePictureActivity extends BaseActivity {
 
+    public final static String KEY_TAKE_IMAGES = "images";
+
     private static final int PHOTO_GRAPH = 1;
     private String fileName; // 图片文件名
     private String dirPath; // 文件路径
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(null != savedInstanceState){
+        if (null != savedInstanceState) {
             dirPath = savedInstanceState.getString("photoPath");
             fileName = savedInstanceState.getString("photoName");
             //intentTakePicture();
@@ -56,12 +59,12 @@ public class TakePictureActivity extends BaseActivity {
 //        }
 //    }
 
-    private void intentTakePicture(){
+    private void intentTakePicture() {
         List<ImageBean> selecteds = new ArrayList<ImageBean>();
         selecteds.add(new ImageBean(null, 0l, null, dirPath + "/"
                 + fileName + ".jpg", false));
         Intent intent = new Intent();
-        intent.putExtra("images", (Serializable) selecteds);
+        intent.putExtra(KEY_TAKE_IMAGES, (Serializable) selecteds);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -72,7 +75,7 @@ public class TakePictureActivity extends BaseActivity {
     private void takePhoto() {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
-            fileName = System.currentTimeMillis()+"";
+            fileName = System.currentTimeMillis() + "";
             dirPath = PathConfig.getImagePath();
             File tempFile = new File(dirPath);
             if (!tempFile.exists()) {
@@ -94,13 +97,12 @@ public class TakePictureActivity extends BaseActivity {
 
         switch (requestCode) {
             case PHOTO_GRAPH:
-                if(resultCode == Activity.RESULT_CANCELED)
-                {
+                if (resultCode == Activity.RESULT_CANCELED) {
                     finish();
                     return;
                 }
 
-                if(resultCode == Activity.RESULT_OK){
+                if (resultCode == Activity.RESULT_OK) {
                     intentTakePicture();
                 }
                 break;
