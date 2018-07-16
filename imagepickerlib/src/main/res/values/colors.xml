@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF9A00</color>
+    <color name="colorPrimaryDark">#E38500</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="C9">#eeeeee</color>  <!-- 反应色 -->
+    <drawable name="C9">#eeeeee</drawable>  <!-- 反应色(黑色20%透明) -->
+    <drawable name="transparent">#00FFFFFF</drawable>
+</resources>

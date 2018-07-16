@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E1E0DE">
+
+    <include
+        android:id="@+id/id_common_back"
+        layout="@layout/global_title_bar_layout" />
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+
+        >
+
+        <FrameLayout
+            android:id="@+id/focus_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/send_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/finish"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+
+        </FrameLayout>
+    </RelativeLayout>
+
+    <com.xp.pro.imagepickerlib.widgets.ViewPagerFixed
+        android:id="@+id/gallery01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_layout"
+        android:layout_below="@id/id_common_back"
+        android:layout_centerHorizontal="true"
+        android:unselectedAlpha="1">
+
+    </com.xp.pro.imagepickerlib.widgets.ViewPagerFixed>
+
+
+</RelativeLayout>

@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.imagepicker.xp.bean.ImageItem;
-import com.imagepicker.xp.global.Params;
-import com.imagepicker.xp.utils.ImageNetUtil;
-import com.imagepicker.xp.widgets.ImagePickerLayout;
+import com.xp.pro.imagepickerlib.ImagePickerBaseActivity;
+import com.xp.pro.imagepickerlib.bean.ImageItem;
+import com.xp.pro.imagepickerlib.global.Params;
+import com.xp.pro.imagepickerlib.widgets.ImagePickerLayout;
 
 import java.util.ArrayList;
 
@@ -35,15 +35,17 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
 
         idImagePickerContainerIdcard = (ImagePickerLayout) findViewById(R.id.id_image_picker_container_idcard);
         idImagePickerContainerIdcard.setTitle("上传身份证图片");
-        idImagePickerContainerIdcard.setTip("最多1张");
+        idImagePickerContainerIdcard.setTip("(最多1张)");
         idImagePickerContainerIdcard.setImagePicker(this);
         idImagePickerContainerIdcard.setSizePhotoNum(3);
         idImagePickerContainerIdcard.setMaxPhotoNum(1);
         idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
         idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
+        idImagePickerContainerIdcard.setOlnyViewMode(true);
 
-        mIdCardImageselectList = ImageNetUtil.getNetImageList();
-
+        mIdCardImageselectList = ImageNetData.getNetImageList();
+        idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
+        idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
         idImagePickerContainerIdcard.refreshPhotoContentView(mIdCardImageselectList);
     }
 
@@ -54,7 +56,7 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
         ArrayList<ImageItem> mOtherImageselectList = new ArrayList<>();
         idImagePickerContainerOther = (ImagePickerLayout) findViewById(R.id.id_image_picker_container_other);
         idImagePickerContainerOther.setTitle("上传其它图片");
-        idImagePickerContainerOther.setTip("最多1张");
+        idImagePickerContainerOther.setTip("(最多1张)");
         idImagePickerContainerOther.setImagePicker(this);
         idImagePickerContainerOther.setSizePhotoNum(3);
         idImagePickerContainerOther.setMaxPhotoNum(1);
@@ -86,21 +88,5 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
     @Override
     public void toPhotoPreview(int index, ArrayList<ImageItem> mImageselectList) {
         toPhotoPreviewFragment(index, mImageselectList);//大图显示
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (null != data && resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case Params.TAKE_PICTURE:
-                    refreshAfterTakePicture(data, idImagePickerContainer.getmImageselectList(), idImagePickerContainer);
-                    break;
-                case Params.GET_PICTURE:
-                    refreshAfterGetPicture(data, idImagePickerContainer.getmImageselectList(), idImagePickerContainer);
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 }
