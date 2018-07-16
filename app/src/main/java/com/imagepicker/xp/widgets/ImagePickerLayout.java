@@ -29,7 +29,7 @@ public class ImagePickerLayout extends LinearLayout {
     private ImagePicker imagePicker;
 
     public interface ImagePicker {
-        void setSelectDialog(View imagePickerView, ArrayList<ImageItem> mImageselectList);
+        void setSelectDialog(View imagePickerView);
 
         void toPhotoPreview(int index, ArrayList<ImageItem> mImageselectList);
     }
@@ -158,7 +158,7 @@ public class ImagePickerLayout extends LinearLayout {
         imageLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagePicker.setSelectDialog(imagePickerView, mImageselectList);
+                imagePicker.setSelectDialog(imagePickerView);
             }
         });
         imagePickerContainer.addView(photoView, layoutParams);

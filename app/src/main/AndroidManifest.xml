@@ -31,7 +31,14 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         <!--</activity>-->
-        <activity android:name=".ImagePickerActivity">
+        <!--<activity android:name=".ImagePickerBaseActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity android:name=".ImagePickerDemo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
