@@ -3,14 +3,22 @@ package com.xp.pro.imagepickerlib.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 图片处理工具类
@@ -21,70 +29,18 @@ public class PhotoFileUtils {
     public static String SDPATH = Environment.getExternalStorageDirectory()
             + "/Photo_LJ/";
 
-//    public static String saveBitmap(Bitmap bm, String picName) {
-////		try {
-////			if (!isFileExist("")) {
-////				File tempf = createSDDir("");
-////			}
-////			File f = new File(SDPATH, picName + ".JPEG");
-////			if (f.exists()) {
-////				f.delete();
-////			}
-////			FileOutputStream out = new FileOutputStream(f);
-////			bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
-////			out.flush();
-////			out.close();
-////					return f;
-////		} catch (FileNotFoundException e) {
-////			e.printStackTrace();
-////		} catch (IOException e) {
-////			e.printStackTrace();
-////		}
-////		return null;
-//
-////        if (!isFileExist("")) {
-////            try {
-////                File tempf = createSDDir("");
-////            } catch (IOException e) {
-////                e.printStackTrace();
-////            }
-////        }
-//        File f = new File(SDPATH, picName + ".JPEG");
-//        f.deleteOnExit();
-//
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        int options = 100;
-//        //bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//        //int imgSize = baos.toByteArray().length / 1024;
-//        //Log.i(TAG, "imgSize1======" + imgsize);
-//        while (baos.toByteArray().length / 1024 > 300) {
-//            baos.reset();
-//            options -= 10;
-//            bm.compress(Bitmap.CompressFormat.JPEG, options, baos);
-//        }
-//        try {
-//            FileOutputStream fos = new FileOutputStream(f);
-//            fos.write(baos.toByteArray());
-//            fos.flush();
-//            fos.close();
-//            return f.getAbsolutePath();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
     /**
      * 报错bitmap
+     *
      * @param context
-     * @param uri 图片uri
+     * @param uri     图片uri
      * @param picName 图片名
      * @return
      */
     public static String saveBitmap(Context context, Uri uri, String picName) {
         try {
             Bitmap bm = getThumbnail(context, uri, 600);
-            if(null != bm){
+            if (null != bm) {
                 //针对三星s4，拍出来的图片会自动旋转
 //                if(DeviceFitUtil.getInstance().isSamsumgSC_I959()) {
 //                    Matrix m = new Matrix();
@@ -106,7 +62,7 @@ public class PhotoFileUtils {
                 fos.write(baos.toByteArray());
                 fos.flush();
                 fos.close();
-                if(!bm.isRecycled()){
+                if (!bm.isRecycled()) {
                     bm.recycle();
                 }
                 return f.getAbsolutePath();
@@ -119,9 +75,10 @@ public class PhotoFileUtils {
 
     /**
      * 通过uri来转成bitmap
+     *
      * @param context
-     * @param uri Uri
-     * @param size 图片宽和高的最大值
+     * @param uri     Uri
+     * @param size    图片宽和高的最大值
      * @return
      * @throws IOException
      */
@@ -129,8 +86,8 @@ public class PhotoFileUtils {
         InputStream input = context.getContentResolver().openInputStream(uri);
         BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
         onlyBoundsOptions.inJustDecodeBounds = true;
-        onlyBoundsOptions.inDither=true;//optional
-        onlyBoundsOptions.inPreferredConfig= Bitmap.Config.ARGB_4444;//optional
+        onlyBoundsOptions.inDither = true;//optional
+        onlyBoundsOptions.inPreferredConfig = Bitmap.Config.ARGB_4444;//optional
         BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
         input.close();
         if ((onlyBoundsOptions.outWidth == -1) || (onlyBoundsOptions.outHeight == -1))
@@ -140,16 +97,17 @@ public class PhotoFileUtils {
         double ratio = (originalSize > size) ? (originalSize / size) : 1.0;
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
         bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
-        bitmapOptions.inDither=true;//optional
-        bitmapOptions.inPreferredConfig= Bitmap.Config.ARGB_4444;//optional
+        bitmapOptions.inDither = true;//optional
+        bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_4444;//optional
         input = context.getContentResolver().openInputStream(uri);
         Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
         input.close();
         return bitmap;
     }
-    private static int getPowerOfTwoForSampleRatio(double ratio){
+
+    private static int getPowerOfTwoForSampleRatio(double ratio) {
         int k = Integer.highestOneBit((int) Math.floor(ratio));
-        if(k==0) return 1;
+        if (k == 0) return 1;
         else return k;
     }
 
@@ -204,5 +162,4 @@ public class PhotoFileUtils {
         }
         return true;
     }
-
 }

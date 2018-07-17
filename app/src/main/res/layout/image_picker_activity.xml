@@ -6,10 +6,6 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <com.xp.pro.imagepickerlib.widgets.ImagePickerLayout
         android:id="@+id/id_image_picker_container_idcard"
         android:layout_width="match_parent"
@@ -19,4 +15,10 @@
         android:id="@+id/id_image_picker_container_other"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/get_image_picker_data_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取图片详细信息" />
 </LinearLayout>

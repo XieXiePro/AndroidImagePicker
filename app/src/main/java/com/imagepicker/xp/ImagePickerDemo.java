@@ -1,12 +1,12 @@
 package com.imagepicker.xp;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.xp.pro.imagepickerlib.ImagePickerBaseActivity;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
-import com.xp.pro.imagepickerlib.global.Params;
 import com.xp.pro.imagepickerlib.widgets.ImagePickerLayout;
 
 import java.util.ArrayList;
@@ -25,6 +25,7 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
         setContentView(R.layout.image_picker_activity);
         setImagePickerIDCard();
         setImagePickerOther();
+        getImagePickerData();
     }
 
     private void setImagePickerIDCard() {
@@ -88,5 +89,17 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
     @Override
     public void toPhotoPreview(int index, ArrayList<ImageItem> mImageselectList) {
         toPhotoPreviewFragment(index, mImageselectList);//大图显示
+    }
+
+    @SuppressLint("LongLogTag")
+    private void getImagePickerData() {
+        findViewById(R.id.get_image_picker_data_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d( "idImagePickerContainerIdcard:", idImagePickerContainerIdcard.getmImageselectList().toString());
+                Log.d( "idImagePickerContainerOther:", idImagePickerContainerOther.getmImageselectList().toString());
+            }
+        });
+
     }
 }

@@ -11,6 +11,9 @@ public class ImageItem implements Serializable, Parcelable {
     public String thumbnailPath;
     public String imagePath;
     public String imgneturl;
+    /**
+     * 0:从相册选择获取图片；1:从网络获取图片；2:从拍照获取图片
+     */
     public int type;
     public Uri uri;
     public boolean isSelected = false;
@@ -113,4 +116,17 @@ public class ImageItem implements Serializable, Parcelable {
             return new ImageItem[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "ImageItem{" +
+                "imageId='" + imageId + '\'' +
+                ", thumbnailPath='" + thumbnailPath + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", imgneturl='" + imgneturl + '\'' +
+                ", type=" + type +
+                ", uri=" + uri +
+                ", isSelected=" + isSelected +
+                '}';
+    }
 }
