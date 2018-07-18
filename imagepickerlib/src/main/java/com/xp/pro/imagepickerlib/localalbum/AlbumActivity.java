@@ -130,7 +130,6 @@ public class AlbumActivity extends BaseActivity {
 
     // 初始化，给一些对象赋值
     private void init() {
-
         setTitle("所有照片");
         Intent data = getIntent();
         mImageselectList = data.getParcelableArrayListExtra(KEY_PREVIEW_PHOTO);

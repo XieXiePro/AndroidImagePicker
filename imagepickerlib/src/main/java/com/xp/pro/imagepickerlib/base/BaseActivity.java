@@ -189,7 +189,12 @@ public class BaseActivity extends FragmentActivity {
             });
         }
     }
-
+    public void setTitle(CharSequence title) {
+        TextView titleLayout = (TextView)findViewById(R.id.id_global_title_bar_title_textview);
+        if (title != null) {
+            titleLayout.setText(title);
+        }
+    }
 
     protected View setBackButtonShow(View.OnClickListener listener) {
         View leftLayout = findViewById(R.id.id_global_title_bar_lefe_layout);

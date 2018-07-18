@@ -2,14 +2,12 @@ package com.xp.pro.imagepickerlib;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.view.View;
 
 import com.xp.pro.imagepickerlib.base.BaseActivity;
 import com.xp.pro.imagepickerlib.bean.ImageBean;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.global.Params;
 import com.xp.pro.imagepickerlib.localalbum.AlbumActivity;
-
 import com.xp.pro.imagepickerlib.widgets.ImagePickerLayout;
 
 import java.io.File;
@@ -20,9 +18,7 @@ public class ImagePickerBaseActivity extends BaseActivity {
 
     protected ArrayList<ImageItem> mImageselectList = new ArrayList<>();
 
-
     protected ImagePickerLayout idImagePickerContainer;
-
 
     /**
      * 选择图片
@@ -31,7 +27,7 @@ public class ImagePickerBaseActivity extends BaseActivity {
         mImageselectList = idImagePickerContainer.getmImageselectList();
         Intent intent = new Intent(ImagePickerBaseActivity.this, AlbumActivity.class);
         intent.putExtra("photo_num", idImagePickerContainer.getMaxPhotoNum());
-        if (mImageselectList != null && mImageselectList.size() > 0) {
+        if (mImageselectList != null && !mImageselectList.isEmpty()) {
             intent.putParcelableArrayListExtra(AlbumActivity.KEY_PREVIEW_PHOTO, mImageselectList);
         }
         startActivityForResultByAnimation(intent, Params.GET_PICTURE);

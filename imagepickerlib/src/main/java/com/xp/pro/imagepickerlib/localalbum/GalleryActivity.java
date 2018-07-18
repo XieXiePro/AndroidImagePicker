@@ -105,7 +105,6 @@ public class GalleryActivity extends BaseActivity {
     }
 
     private void initView() {
-
         setTitle("预览");
     }
 
