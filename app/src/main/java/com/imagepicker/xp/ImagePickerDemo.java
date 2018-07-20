@@ -38,8 +38,8 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
         idImagePickerContainerIdcard.setTitle("上传身份证图片");
         idImagePickerContainerIdcard.setTip("(最多1张)");
         idImagePickerContainerIdcard.setImagePicker(this);
-        idImagePickerContainerIdcard.setSizePhotoNum(3);
-        idImagePickerContainerIdcard.setMaxPhotoNum(1);
+        idImagePickerContainerIdcard.setSizePhotoNum(4);
+        idImagePickerContainerIdcard.setMaxPhotoNum(9);
         idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
         idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
         idImagePickerContainerIdcard.setOlnyViewMode(true);
@@ -60,7 +60,7 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
         idImagePickerContainerOther.setTip("(最多1张)");
         idImagePickerContainerOther.setImagePicker(this);
         idImagePickerContainerOther.setSizePhotoNum(3);
-        idImagePickerContainerOther.setMaxPhotoNum(1);
+        idImagePickerContainerOther.setMaxPhotoNum(5);
         idImagePickerContainerOther.setmImageselectList(mOtherImageselectList);
         idImagePickerContainerOther.setImagePickerView(idImagePickerContainerOther);
     }

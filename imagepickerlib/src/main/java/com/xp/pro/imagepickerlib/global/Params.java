@@ -11,9 +11,9 @@ public class Params {
     /**
      * 拍照
      */
-    public final static int TAKE_PICTURE = 0x000001;
+    public static final  int TAKE_PICTURE = 0x000001;
     /**
      * 选择图片
      */
-    public final static int GET_PICTURE = 0x000002;
+    public static final  int GET_PICTURE = 0x000002;
 }

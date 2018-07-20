@@ -35,9 +35,9 @@ public class ImagePickerLayout extends LinearLayout {
     TextView imagePickerTipTv;
     View photoView;
     /**
-     * 每行展示图片数，默认3张
+     * 每行展示图片数，默认4张
      */
-    private int sizePhotoNum = 3;
+    private int sizePhotoNum = 4;
     /**
      * 限制最大图片数，默认9张
      */
@@ -153,7 +153,9 @@ public class ImagePickerLayout extends LinearLayout {
 
     public void setSizePhotoNum(int sizePhotoNum) {
         this.sizePhotoNum = sizePhotoNum;
+    }
 
+    private void setAddPickerView(int sizePhotoNum) {
         imagePickerContainer.setmCellHeight(mPhotoItemWidth);
         imagePickerContainer.setmCellWidth(mPhotoItemWidth);
         imagePickerContainer.setmCellCount(sizePhotoNum);
@@ -162,15 +164,21 @@ public class ImagePickerLayout extends LinearLayout {
         photoView = LayoutInflater.from(context).inflate(R.layout.item_picker_grid, null);
         ImageView addImage = (ImageView) photoView.findViewById(R.id.item_grid_img);
         addImage.setImageResource(R.mipmap.icon_publish_bt);
+        View imageLayout = photoView.findViewById(R.id.item_grid_img_layout);
         ImageView deleteImage = (ImageView) photoView.findViewById(R.id.item_grid_img_delete);
         deleteImage.setVisibility(View.GONE);
-        View imageLayout = photoView.findViewById(R.id.item_grid_img_layout);
-        imageLayout.setVisibility(View.VISIBLE);
+        if (isOlnyViewMode()) {
+            imageLayout.setVisibility(View.GONE);
+        } else {
+            imageLayout.setVisibility(View.VISIBLE);
+        }
         //弹出拍照或选择图片对话框
         imageLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagePicker.setSelectDialog(imagePickerView);
+                if (null != imagePickerView) {
+                    imagePicker.setSelectDialog(imagePickerView);
+                }
             }
         });
         imagePickerContainer.addView(photoView, layoutParams);
@@ -182,6 +190,7 @@ public class ImagePickerLayout extends LinearLayout {
         imagePickerTipTv = (TextView) layout.findViewById(R.id.image_picker_tip_tv);
         //setPhotoLayout
         imagePickerContainer = (FixGridLayout) layout.findViewById(R.id.image_picker_container);
+        setAddPickerView(sizePhotoNum);
     }
 
     /**
@@ -241,9 +250,9 @@ public class ImagePickerLayout extends LinearLayout {
         });
 
         ImageView deleteImage = (ImageView) photoView.findViewById(R.id.item_grid_img_delete);
-        if(isOlnyViewMode()){
+        if (isOlnyViewMode()) {
             deleteImage.setVisibility(View.GONE);
-        }else{
+        } else {
             deleteImage.setVisibility(View.VISIBLE);
         }
 

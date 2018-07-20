@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xp.pro.imagepickerlib.R;
-import com.xp.pro.imagepickerlib.app.PickerApplication;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.utils.ToastUtils;
 import com.xp.pro.imagepickerlib.widgets.SelectDialog;
@@ -179,12 +178,12 @@ public class BaseActivity extends FragmentActivity {
             return;
         }
         if (isMainThread()) {
-            ToastUtils.show(PickerApplication.getAppContext(), msg);
+            ToastUtils.show(this, msg);
         } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    ToastUtils.show(PickerApplication.getAppContext(), msg);
+                    ToastUtils.show(BaseActivity.this, msg);
                 }
             });
         }

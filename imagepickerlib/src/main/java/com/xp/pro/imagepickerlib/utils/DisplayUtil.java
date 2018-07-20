@@ -2,17 +2,23 @@ package com.xp.pro.imagepickerlib.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.WindowManager;
-
-import com.xp.pro.imagepickerlib.app.PickerApplication;
 
 /**
  * 屏幕显示工具类
  */
 public class DisplayUtil {
 
-    static final DisplayMetrics mMetrics = PickerApplication.getAppContext().getResources().getDisplayMetrics();
-
+    DisplayUtil(Context context){
+        try {
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            sScreenWidth = wm.getDefaultDisplay().getWidth();
+            sScreenHeight = wm.getDefaultDisplay().getHeight();
+        }catch (Exception e){
+            Log.d("getDefaultDisplay", "static initializer: error");
+        }
+    }
     /**
      * Covert dp to px
      *
@@ -21,7 +27,7 @@ public class DisplayUtil {
      * @return pixel
      */
     public static float convertDpToPixel(float dp, Context context) {
-        float px = dp * getDensity();
+        float px = dp * getDensity(context);
         return px;
     }
 
@@ -33,7 +39,7 @@ public class DisplayUtil {
      * @return dp
      */
     public static float convertPixelToDp(float px, Context context) {
-        float dp = px / getDensity();
+        float dp = px / getDensity(context);
         return dp;
     }
 
@@ -56,19 +62,18 @@ public class DisplayUtil {
      * @param
      * @return
      */
-    public static float getDensity() {
-        return mMetrics.density;
+    public static float getDensity(Context context) {
+        float density;
+        try {
+            density = context.getResources().getDisplayMetrics().density;
+        } catch (Exception e) {
+            density = 1;
+        }
+        return density;
     }
 
-
-    private static int sScreenWidth = 320;// 屏幕宽px
-    private static int sScreenHeight = 480;// 屏幕高px
-
-    static {
-        WindowManager wm = (WindowManager) PickerApplication.getAppContext().getSystemService(Context.WINDOW_SERVICE);
-        sScreenWidth = wm.getDefaultDisplay().getWidth();
-        sScreenHeight = wm.getDefaultDisplay().getHeight();
-    }
+    private static int sScreenWidth = 720;// 屏幕宽px
+    private static int sScreenHeight = 1280;// 屏幕高px
 
     public static int getScreenWidth() {
         return sScreenWidth;
@@ -84,9 +89,9 @@ public class DisplayUtil {
      * @param dipValue
      * @return
      */
-    public static int dip2px(float dipValue) {
+    public static int dip2px(float dipValue,Context context) {
         // return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, context.getResources().getDisplayMetrics())+0.5f);
-        return (int) (dipValue * getDensity() + 0.5f);
+        return (int) (dipValue * getDensity(context) + 0.5f);
     }
 
     /**
@@ -95,8 +100,8 @@ public class DisplayUtil {
      * @param pxValue
      * @return
      */
-    public static int px2dip(float pxValue) {
-        return (int) (pxValue / getDensity() + 0.5f);
+    public static int px2dip(float pxValue,Context context) {
+        return (int) (pxValue / getDensity(context) + 0.5f);
     }
 
     public static float getHeightScale(int srcHeight) {
@@ -111,6 +116,7 @@ public class DisplayUtil {
 
     /**
      * 在activity中获取状态栏高度
+     *
      * @param context
      * @return
      */

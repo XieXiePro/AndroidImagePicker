@@ -17,7 +17,6 @@
 
 
     <application
-        android:name=".app.PickerApplication"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 

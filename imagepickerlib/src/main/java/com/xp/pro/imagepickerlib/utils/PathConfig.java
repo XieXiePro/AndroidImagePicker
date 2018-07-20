@@ -2,14 +2,12 @@ package com.xp.pro.imagepickerlib.utils;
 
 import android.os.Environment;
 
-import com.xp.pro.imagepickerlib.app.PickerApplication;
-
 public class PathConfig {
 
     static class Path {
         static final String SD_CARD_PATH = Environment.getExternalStorageDirectory().getPath();
 
-        static final String BASE_PATH = SD_CARD_PATH + "/" + PickerApplication.getAppContext().getPackageName();
+        static final String BASE_PATH = SD_CARD_PATH + "/imagePicker";
 
         static final String IMAGE_CATCH = "/imageCache";
 
