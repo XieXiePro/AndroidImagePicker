@@ -23,12 +23,12 @@ public class ImagePickerBaseActivity extends BaseActivity {
     /**
      * 选择图片
      */
-    protected void getPictrue() {
-        mImageselectList = idImagePickerContainer.getmImageselectList();
+    protected void getPictrue(ImagePickerLayout idImagePickerContainer) {
+        ArrayList<ImageItem>  imageselectList = idImagePickerContainer.getmImageselectList();
         Intent intent = new Intent(ImagePickerBaseActivity.this, AlbumActivity.class);
         intent.putExtra("photo_num", idImagePickerContainer.getMaxPhotoNum());
-        if (mImageselectList != null && !mImageselectList.isEmpty()) {
-            intent.putParcelableArrayListExtra(AlbumActivity.KEY_PREVIEW_PHOTO, mImageselectList);
+        if (imageselectList != null && !imageselectList.isEmpty()) {
+            intent.putParcelableArrayListExtra(AlbumActivity.KEY_PREVIEW_PHOTO, imageselectList);
         }
         startActivityForResultByAnimation(intent, Params.GET_PICTURE);
     }
@@ -38,7 +38,7 @@ public class ImagePickerBaseActivity extends BaseActivity {
      */
     protected void takePhoto() {
         Intent intent = new Intent(ImagePickerBaseActivity.this, TakePictureActivity.class);
-        startActivityForResult(intent, Params.TAKE_PICTURE);
+        startActivityForResultByAnimation(intent, Params.TAKE_PICTURE);
     }
 
     protected void refreshAfterTakePicture(Intent data, ArrayList<ImageItem> mImageselectList, ImagePickerLayout idImagePickerContainer) {

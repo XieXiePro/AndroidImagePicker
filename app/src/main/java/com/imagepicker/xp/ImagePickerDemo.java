@@ -1,12 +1,15 @@
 package com.imagepicker.xp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.xp.pro.imagepickerlib.ImagePickerBaseActivity;
+import com.xp.pro.imagepickerlib.TakePictureActivity;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
+import com.xp.pro.imagepickerlib.global.Params;
 import com.xp.pro.imagepickerlib.widgets.ImagePickerLayout;
 
 import java.util.ArrayList;
@@ -35,19 +38,19 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
         ArrayList<ImageItem> mIdCardImageselectList = new ArrayList<>();
 
         idImagePickerContainerIdcard = (ImagePickerLayout) findViewById(R.id.id_image_picker_container_idcard);
-        idImagePickerContainerIdcard.setTitle("上传身份证图片");
+        idImagePickerContainerIdcard.setTitle("身份证图片");
         idImagePickerContainerIdcard.setTip("(最多1张)");
         idImagePickerContainerIdcard.setImagePicker(this);
         idImagePickerContainerIdcard.setSizePhotoNum(4);
         idImagePickerContainerIdcard.setMaxPhotoNum(9);
         idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
         idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
-        idImagePickerContainerIdcard.setOlnyViewMode(true);
+//        idImagePickerContainerIdcard.setOlnyViewMode(true);
 
-        mIdCardImageselectList = ImageNetData.getNetImageList();
-        idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
-        idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
-        idImagePickerContainerIdcard.refreshPhotoContentView(mIdCardImageselectList);
+//        mIdCardImageselectList = ImageNetData.getNetImageList();
+//        idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
+//        idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
+//        idImagePickerContainerIdcard.refreshPhotoContentView(mIdCardImageselectList);
     }
 
     private void setImagePickerOther() {
@@ -56,7 +59,7 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
          */
         ArrayList<ImageItem> mOtherImageselectList = new ArrayList<>();
         idImagePickerContainerOther = (ImagePickerLayout) findViewById(R.id.id_image_picker_container_other);
-        idImagePickerContainerOther.setTitle("上传其它图片");
+        idImagePickerContainerOther.setTitle("其它图片");
         idImagePickerContainerOther.setTip("(最多1张)");
         idImagePickerContainerOther.setImagePicker(this);
         idImagePickerContainerOther.setSizePhotoNum(3);
@@ -79,7 +82,7 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
             @Override
             public void onClick(View v) {
                 //相片处理
-                getPictrue();
+                getPictrue(idImagePickerContainer);
                 hideSelectDialog();
             }
         });
@@ -91,6 +94,14 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
         toPhotoPreviewFragment(index, mImageselectList);//大图显示
     }
 
+    /**
+     * 调用系统拍照
+     */
+    protected void takePhoto() {
+        Intent intent = new Intent(this, TakePictureActivity.class);
+        intent.putExtra("authority","com.imagepicker.xp");
+        startActivityForResultByAnimation(intent, Params.TAKE_PICTURE);
+    }
     @SuppressLint("LongLogTag")
     private void getImagePickerData() {
         findViewById(R.id.get_image_picker_data_btn).setOnClickListener(new View.OnClickListener() {
@@ -100,6 +111,5 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
                 Log.d( "idImagePickerContainerOther:", idImagePickerContainerOther.getmImageselectList().toString());
             }
         });
-
     }
 }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.xp.pro.imagepickerlib.R;
 
 import java.io.File;
 
@@ -71,7 +72,7 @@ public class ImageLoader {
         Context context = getContext(target.getView());
         if (null != context) {
             url = checkSaveFlow(target.getView(), url);
-            Glide.with(context).load(url).crossFade().into(target);
+            Glide.with(context).load(url).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).crossFade().into(target);
         }
     }
 
@@ -86,7 +87,7 @@ public class ImageLoader {
     public <T extends ImageView> void display(T container, Uri uri) {
         Context context = getContext(container);
         if (null != context) {
-            Glide.with(context).load(uri).crossFade().into(container);
+            Glide.with(context).load(uri).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).crossFade().into(container);
         }
     }
 
@@ -143,7 +144,7 @@ public class ImageLoader {
     public <T extends ImageView> void display(T container, Uri uri, float thumbnail) {
         Context context = getContext(container);
         if (null != context) {
-            Glide.with(context).load(uri).thumbnail(thumbnail).crossFade().into(container);
+            Glide.with(context).load(uri).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).thumbnail(thumbnail).crossFade().into(container);
         }
     }
 
@@ -159,7 +160,7 @@ public class ImageLoader {
     public <T extends ImageView> void display(T container, String url, float thumbnail) {
         Context context = getContext(container);
         if (null != context) {
-            Glide.with(context).load(url).thumbnail(thumbnail).crossFade().into(container);
+            Glide.with(context).load(url).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).thumbnail(thumbnail).crossFade().into(container);
         }
     }
 
@@ -230,6 +231,4 @@ public class ImageLoader {
 
         void onLoadFailed(Throwable e);
     }
-
-
 }
