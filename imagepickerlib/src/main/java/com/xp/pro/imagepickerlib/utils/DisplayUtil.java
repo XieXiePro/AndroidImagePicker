@@ -12,6 +12,7 @@ public class DisplayUtil {
 
     DisplayUtil(Context context){
         try {
+            //此处需传入Application Context获取屏幕宽高
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             sScreenWidth = wm.getDefaultDisplay().getWidth();
             sScreenHeight = wm.getDefaultDisplay().getHeight();

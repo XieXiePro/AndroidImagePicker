@@ -165,7 +165,7 @@ public class LocalFloatPhotoPreview extends BaseFragment {
         public Object instantiateItem(View container, int position) {
             View photoView = mRycycleBin.getScrapView();
             if (photoView == null) {
-                photoView = mInflater.inflate(R.layout.mlsz_item_local_photoviewer, null);
+                photoView = mInflater.inflate(R.layout.local_photoviewer_item, null);
             }
             photoView.setTag(position);
             MultiTransformImageView imageView = (MultiTransformImageView) photoView.findViewById(R.id.imageviewphoto);

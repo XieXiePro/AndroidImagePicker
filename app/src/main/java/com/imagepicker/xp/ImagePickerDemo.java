@@ -32,38 +32,31 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
     }
 
     private void setImagePickerIDCard() {
-        /*
-         * 存放选择图片集合,需区分选择控件位置
-         */
         ArrayList<ImageItem> mIdCardImageselectList = new ArrayList<>();
-
         idImagePickerContainerIdcard = (ImagePickerLayout) findViewById(R.id.id_image_picker_container_idcard);
         idImagePickerContainerIdcard.setTitle("身份证图片");
         idImagePickerContainerIdcard.setTip("(最多1张)");
         idImagePickerContainerIdcard.setImagePicker(this);
-        idImagePickerContainerIdcard.setSizePhotoNum(4);
-        idImagePickerContainerIdcard.setMaxPhotoNum(9);
+        idImagePickerContainerIdcard.setSizePhotoNum(1);
+        idImagePickerContainerIdcard.setMaxPhotoNum(1);
         idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
         idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
-//        idImagePickerContainerIdcard.setOlnyViewMode(true);
+        idImagePickerContainerIdcard.setOlnyViewMode(true);
 
-//        mIdCardImageselectList = ImageNetData.getNetImageList();
-//        idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
-//        idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
-//        idImagePickerContainerIdcard.refreshPhotoContentView(mIdCardImageselectList);
+        mIdCardImageselectList = ImageNetData.getNetImageList();
+        idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
+        idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
+        idImagePickerContainerIdcard.refreshPhotoContentView(mIdCardImageselectList);
     }
 
     private void setImagePickerOther() {
-        /*
-         * 存放选择图片集合,需区分选择控件位置
-         */
         ArrayList<ImageItem> mOtherImageselectList = new ArrayList<>();
         idImagePickerContainerOther = (ImagePickerLayout) findViewById(R.id.id_image_picker_container_other);
         idImagePickerContainerOther.setTitle("其它图片");
         idImagePickerContainerOther.setTip("(最多1张)");
         idImagePickerContainerOther.setImagePicker(this);
         idImagePickerContainerOther.setSizePhotoNum(3);
-        idImagePickerContainerOther.setMaxPhotoNum(5);
+        idImagePickerContainerOther.setMaxPhotoNum(9);
         idImagePickerContainerOther.setmImageselectList(mOtherImageselectList);
         idImagePickerContainerOther.setImagePickerView(idImagePickerContainerOther);
     }
