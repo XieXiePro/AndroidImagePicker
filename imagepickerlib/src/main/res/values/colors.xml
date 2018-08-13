@@ -5,6 +5,9 @@
     <color name="colorAccent">#ffffff</color>
     <color name="transparent">#00000000</color>
     <color name="C9">#eeeeee</color>  <!-- 反应色 -->
+    <!-- 透明黑色背景 -->
+    <color name="transparent_bg">#88000000</color>
+
     <drawable name="C9">#eeeeee</drawable>  <!-- 反应色(黑色20%透明) -->
     <drawable name="transparent">#00FFFFFF</drawable>
 </resources>

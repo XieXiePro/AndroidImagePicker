@@ -36,9 +36,11 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
         idImagePickerContainerIdcard = (ImagePickerLayout) findViewById(R.id.id_image_picker_container_idcard);
         idImagePickerContainerIdcard.setTitle("身份证图片");
         idImagePickerContainerIdcard.setTip("(最多1张)");
+        idImagePickerContainerIdcard.setTitleVisibility(View.GONE);
+        idImagePickerContainerIdcard.setTipVisibility(View.GONE);
         idImagePickerContainerIdcard.setImagePicker(this);
-        idImagePickerContainerIdcard.setSizePhotoNum(1);
-        idImagePickerContainerIdcard.setMaxPhotoNum(1);
+        idImagePickerContainerIdcard.setSizePhotoNum(3);
+        idImagePickerContainerIdcard.setMaxPhotoNum(3);
         idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
         idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
         idImagePickerContainerIdcard.setOlnyViewMode(true);
@@ -92,16 +94,17 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
      */
     protected void takePhoto() {
         Intent intent = new Intent(this, TakePictureActivity.class);
-        intent.putExtra("authority","com.imagepicker.xp");
+        intent.putExtra("authority", "com.imagepicker.xp");
         startActivityForResultByAnimation(intent, Params.TAKE_PICTURE);
     }
+
     @SuppressLint("LongLogTag")
     private void getImagePickerData() {
         findViewById(R.id.get_image_picker_data_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d( "idImagePickerContainerIdcard:", idImagePickerContainerIdcard.getmImageselectList().toString());
-                Log.d( "idImagePickerContainerOther:", idImagePickerContainerOther.getmImageselectList().toString());
+                Log.d("idImagePickerContainerIdcard:", idImagePickerContainerIdcard.getmImageselectList().toString());
+                Log.d("idImagePickerContainerOther:", idImagePickerContainerOther.getmImageselectList().toString());
             }
         });
     }

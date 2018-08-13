@@ -35,9 +35,9 @@ public class ImagePickerLayout extends LinearLayout {
     TextView imagePickerTipTv;
     View photoView;
     /**
-     * 每行展示图片数，默认4张
+     * 每行展示图片数，默认3张
      */
-    private int sizePhotoNum = 4;
+    private int sizePhotoNum = 3;
     /**
      * 限制最大图片数，默认9张
      */
@@ -122,6 +122,10 @@ public class ImagePickerLayout extends LinearLayout {
         imagePickerTitleTv.setText(title);
     }
 
+    public void setTitleVisibility(int visibility) {
+        imagePickerTitleTv.setVisibility(visibility);
+    }
+
     public String getTip() {
         return tip;
     }
@@ -129,6 +133,9 @@ public class ImagePickerLayout extends LinearLayout {
     public void setTip(String tip) {
         this.tip = tip;
         imagePickerTipTv.setText(tip);
+    }
+    public void setTipVisibility(int visibility) {
+        imagePickerTipTv.setVisibility(visibility);
     }
 
     public ImagePicker getImagePicker() {
