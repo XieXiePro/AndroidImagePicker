@@ -43,7 +43,7 @@ public class ImagePickerLayout extends LinearLayout {
      */
     private int maxPhotoNum = 9;
 
-    private int mPhotoItemWidth = DisplayUtil.getScreenWidth() / sizePhotoNum;
+    private int mPhotoItemWidth;
 
     private final ImageLoader mImageLoader = ImageLoader.getInstance();
 
@@ -156,6 +156,7 @@ public class ImagePickerLayout extends LinearLayout {
     }
 
     private void setAddPickerView(int sizePhotoNum) {
+        mPhotoItemWidth = DisplayUtil.getScreenWidth(context) / sizePhotoNum;
         imagePickerContainer.setmCellHeight(mPhotoItemWidth);
         imagePickerContainer.setmCellWidth(mPhotoItemWidth);
         imagePickerContainer.setmCellCount(sizePhotoNum);

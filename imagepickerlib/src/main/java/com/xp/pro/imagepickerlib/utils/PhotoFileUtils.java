@@ -26,8 +26,7 @@ import java.util.Date;
 public class PhotoFileUtils {
     public static final String TAG = PhotoFileUtils.class.getSimpleName();
 
-    public static String SDPATH = Environment.getExternalStorageDirectory()
-            + "/Photo_LJ/";
+    public static String SDPATH = Environment.getExternalStorageDirectory() + "/imagePicker/";
 
     /**
      * 报错bitmap
