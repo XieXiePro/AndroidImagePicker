@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -45,7 +46,23 @@ public class LocalFloatPhotoPreview extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(getLayoutId(), container, false);
         initUI(rootView);
+        setTitle("图片预览", rootView);
+        View leftLayout = rootView.findViewById(R.id.id_global_title_bar_lefe_layout);
+        leftLayout.setVisibility(View.VISIBLE);
+        leftLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onKeyDown();
+            }
+        });
         return rootView;
+    }
+
+    public void setTitle(CharSequence title, View rootView) {
+        TextView titleLayout = (TextView) rootView.findViewById(R.id.id_global_title_bar_title_textview);
+        if (title != null) {
+            titleLayout.setText(title);
+        }
     }
 
     @Override

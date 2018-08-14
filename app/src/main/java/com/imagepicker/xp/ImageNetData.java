@@ -21,7 +21,7 @@ public class ImageNetData {
         item2.setImgneturl(path);
         item2.setImagePath(path);
         item2.setUri(Uri.fromFile(new File(path)));
-        item1.setType(1);
+        item2.setType(1);
         ImageItem item3 = new ImageItem();
         item3.setImgneturl(path);
         item3.setImagePath(path);

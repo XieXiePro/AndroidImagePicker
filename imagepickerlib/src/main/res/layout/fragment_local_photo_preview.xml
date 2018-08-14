@@ -2,13 +2,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent_bg"
+    android:background="@color/C9"
     android:orientation="vertical">
+
+    <include
+        android:id="@+id/id_photo_preview_back"
+        layout="@layout/global_title_bar_layout" />
 
     <com.xp.pro.imagepickerlib.widgets.photoview.PictureFlowViewPager
         android:id="@+id/id_photo_preview_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     </com.xp.pro.imagepickerlib.widgets.photoview.PictureFlowViewPager>
 
 </FrameLayout>

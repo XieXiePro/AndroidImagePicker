@@ -134,6 +134,7 @@ public class ImagePickerLayout extends LinearLayout {
         this.tip = tip;
         imagePickerTipTv.setText(tip);
     }
+
     public void setTipVisibility(int visibility) {
         imagePickerTipTv.setVisibility(visibility);
     }
@@ -162,12 +163,8 @@ public class ImagePickerLayout extends LinearLayout {
         this.sizePhotoNum = sizePhotoNum;
     }
 
-    private void setAddPickerView(int sizePhotoNum) {
-        mPhotoItemWidth = DisplayUtil.getScreenWidth(context) / sizePhotoNum;
-        imagePickerContainer.setmCellHeight(mPhotoItemWidth);
-        imagePickerContainer.setmCellWidth(mPhotoItemWidth);
-        imagePickerContainer.setmCellCount(sizePhotoNum);
-
+    private void setAddPickerView() {
+        setGridLayout();
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(mPhotoItemWidth, mPhotoItemWidth + 10);
         photoView = LayoutInflater.from(context).inflate(R.layout.item_picker_grid, null);
         ImageView addImage = (ImageView) photoView.findViewById(R.id.item_grid_img);
@@ -192,19 +189,28 @@ public class ImagePickerLayout extends LinearLayout {
         imagePickerContainer.addView(photoView, layoutParams);
     }
 
+    private void setGridLayout() {
+        mPhotoItemWidth = DisplayUtil.getScreenWidth(context) / sizePhotoNum;
+        imagePickerContainer.setmCellCount(sizePhotoNum);
+        imagePickerContainer.setmCellHeight(mPhotoItemWidth);
+        imagePickerContainer.setmCellWidth(mPhotoItemWidth);
+        imagePickerContainer.setOlnyViewMode(olnyViewMode);
+    }
+
     private void init(Context context) {
         View layout = LayoutInflater.from(context).inflate(R.layout.image_picker_layout, this, true);
         imagePickerTitleTv = (TextView) layout.findViewById(R.id.image_picker_title_tv);
         imagePickerTipTv = (TextView) layout.findViewById(R.id.image_picker_tip_tv);
         //setPhotoLayout
         imagePickerContainer = (FixGridLayout) layout.findViewById(R.id.image_picker_container);
-        setAddPickerView(sizePhotoNum);
+        setAddPickerView();
     }
 
     /**
      * 刷新发布界面中，发布图片信息
      */
     public void refreshPhotoContentView(ArrayList<ImageItem> mImageselectList) {
+        setGridLayout();
         if (null != mImageselectList && !mImageselectList.isEmpty()) {
             int size = mImageselectList.size();
             files = null;
@@ -231,7 +237,6 @@ public class ImagePickerLayout extends LinearLayout {
             imagePickerContainer.getChildAt(imagePickerContainer.getChildCount() - 1).setVisibility(View.VISIBLE);
         }
     }
-
 
     private void addPhotoItem(final ArrayList<ImageItem> mImageselectList, ImageItem imageItem) {
         if (imageItem == null || TextUtils.isEmpty(imageItem.getImagePath())) {

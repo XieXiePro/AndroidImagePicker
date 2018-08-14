@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 public class FixGridLayout extends ViewGroup {
     private int mCellWidth;
     private int mCellHeight;
-
     private int mCellCount;
+    /**
+     * 是否仅显示模式：true:仅显示模式，无法选择、修改或删除
+     */
+    private boolean olnyViewMode;
 
     public FixGridLayout(Context context) {
         super(context);
@@ -38,6 +41,14 @@ public class FixGridLayout extends ViewGroup {
 
     public void setmCellCount(int count) {
         mCellCount = count;
+    }
+
+    public boolean isOlnyViewMode() {
+        return olnyViewMode;
+    }
+
+    public void setOlnyViewMode(boolean olnyViewMode) {
+        this.olnyViewMode = olnyViewMode;
     }
 
     /**
@@ -94,19 +105,24 @@ public class FixGridLayout extends ViewGroup {
         for (int i = 0; i < count; i++) {
             View childView = getChildAt(i);
             /*
-			 * 090 This is called to find out how big a view should be. 091 The
-			 * parent supplies constraint information in the width and height
-			 * parameters. 092 The actual mesurement work of a view is performed
-			 * in onMeasure(int, int), 093 called by this method. 094 Therefore,
-			 * only onMeasure(int, int) can and must be overriden by subclasses.
-			 * 095
-			 */
+             * 090 This is called to find out how big a view should be. 091 The
+             * parent supplies constraint information in the width and height
+             * parameters. 092 The actual mesurement work of a view is performed
+             * in onMeasure(int, int), 093 called by this method. 094 Therefore,
+             * only onMeasure(int, int) can and must be overriden by subclasses.
+             * 095
+             */
             childView.measure(cellWidthSpec, cellHeightSpec);
         }
         // 设置容器控件所占区域大小
         // 注意setMeasuredDimension和resolveSize的用法
-        setMeasuredDimension(resolveSize(mCellWidth * count, widthMeasureSpec),
-                resolveSize(mCellHeight * ((count - 1) / mCellCount + 1), heightMeasureSpec));
+        if (isOlnyViewMode()) {
+            setMeasuredDimension(resolveSize(mCellWidth * count, widthMeasureSpec),
+                    resolveSize(mCellHeight * ((count - 1) / mCellCount), heightMeasureSpec));
+        } else {
+            setMeasuredDimension(resolveSize(mCellWidth * count, widthMeasureSpec),
+                    resolveSize(mCellHeight * ((count - 1) / mCellCount + 1), heightMeasureSpec));
+        }
         // setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
 
         // 不需要调用父类的方法
