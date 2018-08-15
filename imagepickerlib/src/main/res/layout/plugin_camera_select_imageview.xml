@@ -1,39 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xp.pro.imagepickerlib.widgets.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp">
-
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:background="@color/C9"
-        android:scaleType="centerCrop" />
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/toggle"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <ToggleButton
-            android:id="@+id/toggle_button"
+        <ImageView
+            android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/plugin_camera_pic_choose_selector"
-            android:textOff="@null"
-            android:textOn="@null" />
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:background="@color/C9"
+            android:scaleType="centerCrop" />
 
-        <Button
-            android:id="@+id/choosedbt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="@mipmap/img_pic_selected"
-            android:visibility="gone"
+        <RelativeLayout
+            android:id="@+id/toggle"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-            />
+            <ToggleButton
+                android:id="@+id/toggle_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/plugin_camera_pic_choose_selector"
+                android:textOff="@null"
+                android:textOn="@null" />
+
+            <Button
+                android:id="@+id/choosedbt"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@mipmap/icon_selected"
+                android:visibility="gone" />
+
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
+</com.xp.pro.imagepickerlib.widgets.SquareLayout>

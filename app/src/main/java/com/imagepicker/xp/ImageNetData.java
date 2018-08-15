@@ -27,10 +27,16 @@ public class ImageNetData {
         item3.setImagePath(path);
         item3.setUri(Uri.fromFile(new File(path)));
         item3.setType(1);
+        ImageItem item4 = new ImageItem();
+        item4.setImgneturl(path);
+        item4.setImagePath(path);
+        item4.setUri(Uri.fromFile(new File(path)));
+        item4.setType(1);
         ArrayList<ImageItem> netImageList = new ArrayList<>();
         netImageList.add(item1);
         netImageList.add(item2);
         netImageList.add(item3);
+        netImageList.add(item4);
         return netImageList;
     }
 }

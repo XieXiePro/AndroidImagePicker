@@ -138,13 +138,13 @@ public class AlbumActivity extends BaseActivity {
         helper.init(getApplicationContext());
 
         contentList = helper.getImagesBucketList(false);
-        dataList = new ArrayList<ImageItem>();
+        dataList = new ArrayList<>();
         for (int i = 0; i < contentList.size(); i++) {
             dataList.addAll(contentList.get(i).imageList);
         }
 
         preview = (TextView) findViewById(R.id.preview);
-        if (mImageselectList != null && mImageselectList.size() > 0) {
+        if (mImageselectList != null && !mImageselectList.isEmpty()) {
             preview.setVisibility(View.VISIBLE);
         } else {
             preview.setVisibility(View.GONE);
@@ -152,12 +152,8 @@ public class AlbumActivity extends BaseActivity {
 
         focus_preview = (FrameLayout) findViewById(R.id.focus_preview);
         focus_preview.setOnClickListener(new PreviewListener());
-//        Intent intent = getIntent();
-//        Bundle bundle = intent.getExtras();
-//        mGridView = (GridView) findViewById(Res.getWidgetID("myGrid"));
         GridView mGridView = (GridView) findViewById(R.id.myGrid);
-        gridImageAdapter = new AlbumGridViewAdapter(this, dataList,
-                mImageselectList);
+        gridImageAdapter = new AlbumGridViewAdapter(this, dataList, mImageselectList);
         mGridView.setAdapter(gridImageAdapter);
         mGridView.setEmptyView(findViewById(R.id.myText));
         okButton = (TextView) findViewById(R.id.ok_button);

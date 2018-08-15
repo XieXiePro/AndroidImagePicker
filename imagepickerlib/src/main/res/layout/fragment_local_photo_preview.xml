@@ -3,11 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/C9"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <include
         android:id="@+id/id_photo_preview_back"
-        layout="@layout/global_title_bar_layout" />
+        layout="@layout/global_title_bar_layout"
+        android:visibility="gone" />
 
     <com.xp.pro.imagepickerlib.widgets.photoview.PictureFlowViewPager
         android:id="@+id/id_photo_preview_viewpager"

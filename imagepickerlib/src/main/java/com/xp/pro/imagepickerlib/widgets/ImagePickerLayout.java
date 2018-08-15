@@ -164,7 +164,12 @@ public class ImagePickerLayout extends LinearLayout {
     }
 
     private void setAddPickerView() {
-        setGridLayout();
+        mPhotoItemWidth = DisplayUtil.getScreenWidth(context) / sizePhotoNum;
+        imagePickerContainer.setmCellCount(sizePhotoNum);
+        imagePickerContainer.setmCellHeight(mPhotoItemWidth);
+        imagePickerContainer.setmCellWidth(mPhotoItemWidth);
+        imagePickerContainer.setOlnyViewMode(olnyViewMode);
+
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(mPhotoItemWidth, mPhotoItemWidth + 10);
         photoView = LayoutInflater.from(context).inflate(R.layout.item_picker_grid, null);
         ImageView addImage = (ImageView) photoView.findViewById(R.id.item_grid_img);
@@ -189,14 +194,6 @@ public class ImagePickerLayout extends LinearLayout {
         imagePickerContainer.addView(photoView, layoutParams);
     }
 
-    private void setGridLayout() {
-        mPhotoItemWidth = DisplayUtil.getScreenWidth(context) / sizePhotoNum;
-        imagePickerContainer.setmCellCount(sizePhotoNum);
-        imagePickerContainer.setmCellHeight(mPhotoItemWidth);
-        imagePickerContainer.setmCellWidth(mPhotoItemWidth);
-        imagePickerContainer.setOlnyViewMode(olnyViewMode);
-    }
-
     private void init(Context context) {
         View layout = LayoutInflater.from(context).inflate(R.layout.image_picker_layout, this, true);
         imagePickerTitleTv = (TextView) layout.findViewById(R.id.image_picker_title_tv);
@@ -210,7 +207,6 @@ public class ImagePickerLayout extends LinearLayout {
      * 刷新发布界面中，发布图片信息
      */
     public void refreshPhotoContentView(ArrayList<ImageItem> mImageselectList) {
-        setGridLayout();
         if (null != mImageselectList && !mImageselectList.isEmpty()) {
             int size = mImageselectList.size();
             files = null;
@@ -290,6 +286,8 @@ public class ImagePickerLayout extends LinearLayout {
                 }
             }
         });
+        //添加图片之前设置图片模式
+        imagePickerContainer.setOlnyViewMode(isOlnyViewMode());
         imagePickerContainer.addView(photoView, imagePickerContainer.getChildCount() - 1, layoutParams);
     }
 

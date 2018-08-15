@@ -21,8 +21,6 @@
     <ListView
         android:id="@+id/id_layout_dialog_item_select_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ListView>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

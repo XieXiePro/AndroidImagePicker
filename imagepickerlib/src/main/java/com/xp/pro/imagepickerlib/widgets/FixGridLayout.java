@@ -117,8 +117,8 @@ public class FixGridLayout extends ViewGroup {
         // 设置容器控件所占区域大小
         // 注意setMeasuredDimension和resolveSize的用法
         if (isOlnyViewMode()) {
-            setMeasuredDimension(resolveSize(mCellWidth * count, widthMeasureSpec),
-                    resolveSize(mCellHeight * ((count - 1) / mCellCount), heightMeasureSpec));
+            setMeasuredDimension(resolveSize(mCellWidth * (count - 1), widthMeasureSpec),
+                    resolveSize(mCellHeight * ((count + 1) / mCellCount), heightMeasureSpec));
         } else {
             setMeasuredDimension(resolveSize(mCellWidth * count, widthMeasureSpec),
                     resolveSize(mCellHeight * ((count - 1) / mCellCount + 1), heightMeasureSpec));

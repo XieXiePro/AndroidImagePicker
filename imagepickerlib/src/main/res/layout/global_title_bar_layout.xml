@@ -14,12 +14,12 @@
         <ImageView
             android:id="@+id/id_global_title_bar_lefe_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:src="@mipmap/icon_login_back"
-            android:visibility="invisible" />
+            android:src="@mipmap/icon_back"
+            android:visibility="invisible"/>
 
         <LinearLayout
             android:id="@+id/id_global_title_bar_right_layout"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="center"
-                android:src="@mipmap/icon_delete"
+                android:src="@mipmap/ic_delete"
                 android:visibility="invisible" />
         </FrameLayout>
 

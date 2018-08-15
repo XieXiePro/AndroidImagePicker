@@ -47,7 +47,6 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
 
         mIdCardImageselectList = ImageNetData.getNetImageList();
         idImagePickerContainerIdcard.setmImageselectList(mIdCardImageselectList);
-        idImagePickerContainerIdcard.setImagePickerView(idImagePickerContainerIdcard);
         idImagePickerContainerIdcard.refreshPhotoContentView(mIdCardImageselectList);
     }
 
