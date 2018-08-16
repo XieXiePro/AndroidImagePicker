@@ -17,7 +17,6 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.xp.pro.imagepickerlib.R;
-import com.xp.pro.imagepickerlib.base.BaseActivity;
 import com.xp.pro.imagepickerlib.base.BaseFragment;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.utils.ImageLoader;
@@ -29,10 +28,11 @@ import java.util.List;
  * Description: 大图浮层预览
  */
 public class LocalFloatPhotoPreview extends BaseFragment {
-    private final static String TAG = LocalFloatPhotoPreview.class.getSimpleName();
+    private static final String TAG = LocalFloatPhotoPreview.class.getSimpleName();
 
     private LayoutInflater mInflater;
     private ImgViewPager mViewPager;
+    private TextView idPhotoPreviewTv;
 
     private ArrayList<ImageItem> mAllImages;
     private int mCurIndex;
@@ -78,10 +78,13 @@ public class LocalFloatPhotoPreview extends BaseFragment {
         mInflater = getActivity().getLayoutInflater();
 
         mViewPager = (ImgViewPager) rootView.findViewById(R.id.id_photo_preview_viewpager);
+        idPhotoPreviewTv = (TextView) rootView.findViewById(R.id.id_photo_preview_tv);
         mViewPager.setPageMargin(48);
         ImageAdapter imageAdapter = new ImageAdapter();
         mViewPager.setAdapter(imageAdapter);
         mViewPager.setCurrentItem(mCurIndex);
+        //显示图片指针
+        idPhotoPreviewTv.setText((String.format("%d/%d", mViewPager.getCurrentItem() + 1, mAllImages.size())));
     }
 
     public void setAllImages(List<ImageItem> images) {
@@ -103,13 +106,6 @@ public class LocalFloatPhotoPreview extends BaseFragment {
             if (focusView != null) {
                 imm.hideSoftInputFromWindow(focusView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
-        }
-    }
-
-    private void onKeyDown() {
-        if (getActivity() != null && getActivity() instanceof BaseActivity) {
-            BaseActivity activity = (BaseActivity) getActivity();
-            activity.onBackPressed();
         }
     }
 
@@ -179,15 +175,15 @@ public class LocalFloatPhotoPreview extends BaseFragment {
         }
 
         @Override
-        public Object instantiateItem(View container, int position) {
+        public Object instantiateItem(View container, final int position) {
             View photoView = mRycycleBin.getScrapView();
             if (photoView == null) {
                 photoView = mInflater.inflate(R.layout.local_photoviewer_item, null);
             }
+
             photoView.setTag(position);
             MultiTransformImageView imageView = (MultiTransformImageView) photoView.findViewById(R.id.imageviewphoto);
             final ProgressBar progressBar = (ProgressBar) photoView.findViewById(R.id.image_loading);
-
             viewList.put(position, imageView);
             imageView.setViewPager(mViewPager);
             ((ViewGroup) container).addView(photoView);
@@ -226,7 +222,6 @@ public class LocalFloatPhotoPreview extends BaseFragment {
                         super.onStart();
                     }
                 });
-//                imageView.setImageBitmap(imageItem.getBitmap());
             } else {
                 progressBar.setVisibility(View.GONE);
             }
@@ -241,7 +236,6 @@ public class LocalFloatPhotoPreview extends BaseFragment {
 
         @Override
         public void finishUpdate(View container) {
-
         }
 
         @Override
@@ -284,6 +278,8 @@ public class LocalFloatPhotoPreview extends BaseFragment {
 
         @Override
         public boolean onUp(MotionEvent e) {
+            //显示图片指针
+            idPhotoPreviewTv.setText((String.format("%d/%d", mViewPager.getCurrentItem() + 1, mAllImages.size())));
             return false;
         }
 

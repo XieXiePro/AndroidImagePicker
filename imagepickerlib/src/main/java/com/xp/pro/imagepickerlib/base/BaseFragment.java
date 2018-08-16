@@ -267,6 +267,7 @@ public class BaseFragment extends Fragment {
 
     /**
      * 设置控间的大小比例 widthScale : heightScale
+     *
      * @param view
      * @param widthScale
      * @param heightScale
@@ -289,4 +290,10 @@ public class BaseFragment extends Fragment {
         return isAttached;
     }
 
+    public void onKeyDown() {
+        if (null != getActivity() && getActivity() instanceof BaseActivity) {
+            BaseActivity activity = (BaseActivity) getActivity();
+            activity.onBackPressed();
+        }
+    }
 }
