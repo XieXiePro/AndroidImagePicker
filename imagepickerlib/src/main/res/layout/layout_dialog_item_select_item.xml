@@ -1,38 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@color/transparent"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@mipmap/org_bg">
 
         <TextView
             android:id="@+id/id_layout_dialog_item_textview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="拍照" />
+            style="@style/dialog_list_item_txt" />
 
-        <TextView
-            android:id="@+id/id_layout_dialog_item_mark"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:gravity="center"
-            android:text="√"
-            android:textSize="25sp"
-            android:visibility="gone" />
     </RelativeLayout>
-
-    <View
-        android:id="@+id/id_layout_dialog_item_line"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/C9"
-        android:visibility="gone" />
 
 </LinearLayout>

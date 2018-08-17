@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.xp.pro.imagepickerlib.R;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
-import com.xp.pro.imagepickerlib.utils.ToastUtils;
 import com.xp.pro.imagepickerlib.widgets.SelectDialog;
+import com.xp.pro.imagepickerlib.widgets.TipDialog;
 import com.xp.pro.imagepickerlib.widgets.photoview.LocalFloatPhotoPreview;
 
 import java.util.List;
@@ -25,6 +25,8 @@ import java.util.List;
 public class BaseActivity extends FragmentActivity {
 
     private SelectDialog mSelectDialog;
+
+    private TipDialog mTipDialog;
 
     public static final String BACK_ANIMATION_ENTER = "enter_animation";
     public static final String BACK_ANIMATION_EXIT = "exit_animation";
@@ -172,24 +174,42 @@ public class BaseActivity extends FragmentActivity {
         }
     }
 
+    protected void showTipDialog(String title, String content) {
+        if (mTipDialog == null) {
+            mTipDialog = TipDialog.createDialog(this, title);
+        }
+
+        mTipDialog.setTitle(title);
+        mTipDialog.setContent(content);
+        mTipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                mTipDialog = null;
+            }
+        });
+        if (!mTipDialog.isShowing()) {
+            mTipDialog.show();
+        }
+    }
 
     public void showNotifyMessage(final CharSequence msg) {
         if (!isActivityOnTop) {
             return;
         }
         if (isMainThread()) {
-            ToastUtils.show(this, msg);
+            showTipDialog("提醒", msg.toString());
         } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    ToastUtils.show(BaseActivity.this, msg);
+                    showTipDialog("提醒", msg.toString());
                 }
             });
         }
     }
+
     public void setTitle(CharSequence title) {
-        TextView titleLayout = (TextView)findViewById(R.id.id_global_title_bar_title_textview);
+        TextView titleLayout = (TextView) findViewById(R.id.id_global_title_bar_title_textview);
         if (title != null) {
             titleLayout.setText(title);
         }

@@ -11,7 +11,7 @@ import com.xp.pro.imagepickerlib.R;
 
 /**
  * ToastUtils
- * 
+ *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-12-9
  */
 public class ToastUtils {
@@ -67,6 +67,22 @@ public class ToastUtils {
         tv.setText(text);
         toastInstance.setView(view);
         toastInstance.setDuration(duration);
+        toastInstance.show();
+    }
+
+    public static void showMsg(Context context, CharSequence text) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        if (toastInstance == null) {
+            toastInstance = new Toast(context);
+        }
+        View view = LayoutInflater.from(context).inflate(R.layout.custom_notification, null);
+        TextView tv = (TextView) view.findViewById(R.id.id_custom_notification_textview);
+        tv.setTextSize(20);
+        tv.setText(text);
+        toastInstance.setView(view);
+        toastInstance.setDuration(Toast.LENGTH_LONG);
         toastInstance.show();
     }
 }

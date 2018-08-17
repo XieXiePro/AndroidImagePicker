@@ -26,7 +26,6 @@ public class SelectDialog extends SafeDialog {
     private List<View.OnClickListener> mListeners;
     private boolean isMarked = false;
     private String mTitle;
-    private TextView mTitletText;
     private LayoutInflater layoutInflater;
     private String markedItem;
 
@@ -98,10 +97,10 @@ public class SelectDialog extends SafeDialog {
             initData();
             // 设置显示属性
             Window window = getWindow();
-            window.setGravity(Gravity.CENTER);
+            window.setGravity(Gravity.BOTTOM);
             window.setWindowAnimations(R.style.dialog_center_show_animation_style);
             WindowManager.LayoutParams lp = getWindow().getAttributes();
-            lp.width = DisplayUtil.getScreenWidth(context) / 5 * 4; //设置宽度
+            lp.width = DisplayUtil.getScreenWidth(context); //设置宽度
             getWindow().setAttributes(lp);
 
             super.show();
@@ -118,15 +117,12 @@ public class SelectDialog extends SafeDialog {
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
-        mTitletText = (TextView) view.findViewById(R.id.id_layout_dialog_item_select_title);
         ListView mListview = (ListView) view.findViewById(R.id.id_layout_dialog_item_select_listview);
         mDialogAdapter = new SelectDialogAdapter(context);
         mListview.setAdapter(mDialogAdapter);
     }
 
     private void initData() {
-        mTitletText.setText(mTitle);
-
         mDialogAdapter.setListenerList(mListeners);
         mDialogAdapter.setData(mListDatas);
     }
@@ -146,30 +142,15 @@ public class SelectDialog extends SafeDialog {
                 return convertView;
             }
 
-            ViewHolder viewHolder = null;
+            ViewHolder viewHolder;
             if (convertView == null) {
                 viewHolder = new ViewHolder();
                 convertView = layoutInflater.inflate(R.layout.layout_dialog_item_select_item, null);
                 viewHolder.mTextView = (TextView) convertView.findViewById(R.id.id_layout_dialog_item_textview);
-                viewHolder.mMakeView = (TextView) convertView.findViewById(R.id.id_layout_dialog_item_mark);
-                viewHolder.mLineView = convertView.findViewById(R.id.id_layout_dialog_item_line);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-
-            if (isMarked && content.equals(markedItem)) {
-                viewHolder.mMakeView.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.mMakeView.setVisibility(View.GONE);
-            }
-
-            if (position < getCount() - 1) {
-                viewHolder.mLineView.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.mLineView.setVisibility(View.GONE);
-            }
-
             viewHolder.mTextView.setText(content);
             if (position == mListDatas.size() - 1) {
                 viewHolder.mTextView.setBackgroundResource(R.drawable.selector_confirm_dialog_one_btn);
@@ -196,8 +177,6 @@ public class SelectDialog extends SafeDialog {
 
         private class ViewHolder {
             TextView mTextView;
-            TextView mMakeView;
-            View mLineView;
         }
     }
 

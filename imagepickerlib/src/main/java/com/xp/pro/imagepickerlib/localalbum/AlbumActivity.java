@@ -130,7 +130,7 @@ public class AlbumActivity extends BaseActivity {
 
     // 初始化，给一些对象赋值
     private void init() {
-        setTitle("所有照片");
+        setTitle("选择图片");
         Intent data = getIntent();
         mImageselectList = data.getParcelableArrayListExtra(KEY_PREVIEW_PHOTO);
         photo_num = data.getIntExtra("photo_num", 0);
@@ -158,7 +158,7 @@ public class AlbumActivity extends BaseActivity {
         mGridView.setEmptyView(findViewById(R.id.myText));
         okButton = (TextView) findViewById(R.id.ok_button);
         focus_ok_button = (FrameLayout) findViewById(R.id.focus_ok_button);
-        okButton.setText("(" + getSeleteImageCount()+ "/" + photo_num + ")" + "完成");
+        okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + "完成");
 
         setRightButtonShow("取消", new OnClickListener() {
             @Override
@@ -174,8 +174,8 @@ public class AlbumActivity extends BaseActivity {
         });
     }
 
-    private int getSeleteImageCount(){
-        int imageCount = (mImageselectList==null) ? 0 : mImageselectList.size();
+    private int getSeleteImageCount() {
+        int imageCount = (mImageselectList == null) ? 0 : mImageselectList.size();
         return imageCount;
     }
 
@@ -188,7 +188,7 @@ public class AlbumActivity extends BaseActivity {
                     public void onItemClick(final ToggleButton toggleButton,
                                             int position, boolean isChecked, Button chooseBt) {
                         if (isChecked) {
-                            if (getSeleteImageCount()>= photo_num) {
+                            if (getSeleteImageCount() >= photo_num) {
                                 toggleButton.setChecked(false);
                                 chooseBt.setVisibility(View.GONE);
                                 if (!removeOneData(dataList.get(position))) {
@@ -197,19 +197,19 @@ public class AlbumActivity extends BaseActivity {
                                 return;
                             }
                             chooseBt.setVisibility(View.VISIBLE);
-                            if (mImageselectList==null){
+                            if (mImageselectList == null) {
                                 mImageselectList = new ArrayList<ImageItem>();
                             }
                             mImageselectList.add(dataList.get(position));
-                            okButton.setText("(" + getSeleteImageCount()+ "/"
+                            okButton.setText("(" + getSeleteImageCount() + "/"
                                     + photo_num + ")" + getString(R.string.finish));
                         } else {
                             removeItemFromList(dataList.get(position));
                             chooseBt.setVisibility(View.GONE);
-                            okButton.setText("(" + getSeleteImageCount()+ "/"
+                            okButton.setText("(" + getSeleteImageCount() + "/"
                                     + photo_num + ")" + getString(R.string.finish));
                         }
-                        if (getSeleteImageCount()> 0) {
+                        if (getSeleteImageCount() > 0) {
                             preview.setVisibility(View.VISIBLE);
                         } else {
                             preview.setVisibility(View.GONE);
@@ -236,7 +236,7 @@ public class AlbumActivity extends BaseActivity {
     private boolean removeOneData(ImageItem imageItem) {
         if (mImageselectList.contains(imageItem)) {
             mImageselectList.remove(imageItem);
-            okButton.setText("(" + getSeleteImageCount()+ "/"
+            okButton.setText("(" + getSeleteImageCount() + "/"
                     + photo_num + ")" + getString(R.string.finish));
             return true;
         }
@@ -244,15 +244,15 @@ public class AlbumActivity extends BaseActivity {
     }
 
     public void isShowOkBt() {
-        if (getSeleteImageCount()> 0) {
-            okButton.setText("(" + getSeleteImageCount()+ "/"
+        if (getSeleteImageCount() > 0) {
+            okButton.setText("(" + getSeleteImageCount() + "/"
                     + photo_num + ")" + getString(R.string.finish));
 //            focus_preview.setPressed(true);
 //            focus_ok_button.setPressed(true);
             focus_preview.setClickable(true);
             focus_ok_button.setClickable(true);
         } else {
-            okButton.setText("(" + getSeleteImageCount()+ "/"
+            okButton.setText("(" + getSeleteImageCount() + "/"
                     + photo_num + ")" + getString(R.string.finish));
 //            focus_preview.setPressed(false);
             focus_preview.setClickable(false);

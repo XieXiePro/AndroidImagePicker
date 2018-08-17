@@ -2,25 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/btn_round_white_bg"
+    android:background="@drawable/transparent"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/id_layout_dialog_item_select_title"
-        style="@style/title_main_txt"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="标题"
-        android:textColor="#333333" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#cccccc" />
 
     <ListView
         android:id="@+id/id_layout_dialog_item_select_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@color/transparent" />
 
 </LinearLayout>

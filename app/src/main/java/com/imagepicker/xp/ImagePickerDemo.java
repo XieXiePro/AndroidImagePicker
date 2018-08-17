@@ -57,7 +57,7 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
         idImagePickerContainerOther.setTip("(最多1张)");
         idImagePickerContainerOther.setImagePicker(this);
         idImagePickerContainerOther.setSizePhotoNum(3);
-        idImagePickerContainerOther.setMaxPhotoNum(9);
+        idImagePickerContainerOther.setMaxPhotoNum(3);
         idImagePickerContainerOther.setmImageselectList(mOtherImageselectList);
         idImagePickerContainerOther.setImagePickerView(idImagePickerContainerOther);
     }
@@ -69,18 +69,23 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
             @Override
             public void onClick(View v) {
                 //拍照处理
-                takePhoto();
                 hideSelectDialog();
+                takePhoto();
             }
         }, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //相片处理
+                hideSelectDialog();
                 getPictrue(idImagePickerContainer);
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 hideSelectDialog();
             }
         });
-        showSelectDialog("选择图片", null, "拍照", "相册");
+        showSelectDialog("选择图片", null, "相机拍照", "本地相册", "取消");
     }
 
     @Override
