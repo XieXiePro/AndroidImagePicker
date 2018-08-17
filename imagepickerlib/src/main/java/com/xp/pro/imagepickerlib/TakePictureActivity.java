@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.xp.pro.imagepickerlib.base.BaseActivity;
 import com.xp.pro.imagepickerlib.bean.ImageBean;
@@ -21,7 +22,7 @@ import static android.support.v4.content.FileProvider.getUriForFile;
 
 public class TakePictureActivity extends BaseActivity {
 
-    public static final  String KEY_TAKE_IMAGES = "images";
+    public static final String KEY_TAKE_IMAGES = "images";
 
     private String authority = "authority";
 
@@ -35,10 +36,10 @@ public class TakePictureActivity extends BaseActivity {
         if (null != savedInstanceState) {
             dirPath = savedInstanceState.getString("photoPath");
             fileName = savedInstanceState.getString("photoName");
-            //intentTakePicture();
+//            intentTakePicture();
         }
         setContentView(R.layout.activity_take_picture);
-        authority=getIntent().getStringExtra("authority");
+        authority = getIntent().getStringExtra("authority");
         takePhoto(authority);
 
     }
@@ -60,7 +61,7 @@ public class TakePictureActivity extends BaseActivity {
 //    @Override
 //    protected void onResume() {
 //        super.onResume();
-//        if(!TextUtils.isEmpty(fileName)){
+//        if (!TextUtils.isEmpty(fileName)) {
 //            intentTakePicture();
 //        }
 //    }

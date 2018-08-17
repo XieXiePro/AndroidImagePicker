@@ -11,7 +11,6 @@ public class PathConfig {
 
         static final String IMAGE_CATCH = "/imageCache";
 
-        static final String DOWNLOAD_CATCH = "/downloadCache";
     }
 
     public static final String getBasePath() {
@@ -22,7 +21,4 @@ public class PathConfig {
         return Path.BASE_PATH + Path.IMAGE_CATCH;
     }
 
-    public static final String getDownloadPath() {
-        return Path.BASE_PATH + Path.DOWNLOAD_CATCH;
-    }
 }

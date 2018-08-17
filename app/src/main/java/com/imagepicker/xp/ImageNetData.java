@@ -35,7 +35,7 @@ public class ImageNetData {
         ArrayList<ImageItem> netImageList = new ArrayList<>();
         netImageList.add(item1);
         netImageList.add(item2);
-        netImageList.add(item3);
+//        netImageList.add(item3);
 //        netImageList.add(item4);
         return netImageList;
     }

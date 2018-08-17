@@ -26,8 +26,6 @@ import java.util.Date;
 public class PhotoFileUtils {
     public static final String TAG = PhotoFileUtils.class.getSimpleName();
 
-    public static String SDPATH = Environment.getExternalStorageDirectory() + "/imagePicker/";
-
     /**
      * 报错bitmap
      *
@@ -53,7 +51,7 @@ public class PhotoFileUtils {
                 createSDDir("");
                 //dirFile.mkdir();
 
-                File f = new File(SDPATH, picName + ".jpg");
+                File f = new File(PathConfig.getImagePath(), picName + ".jpg");
                 f.deleteOnExit();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -111,7 +109,7 @@ public class PhotoFileUtils {
     }
 
     public static File createSDDir(String dirName) throws IOException {
-        File dir = new File(SDPATH + dirName);
+        File dir = new File(PathConfig.getImagePath() + dirName);
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
 
@@ -122,13 +120,13 @@ public class PhotoFileUtils {
     }
 
     public static boolean isFileExist(String fileName) {
-        File file = new File(SDPATH + fileName);
+        File file = new File(PathConfig.getImagePath() + fileName);
         file.isFile();
         return file.exists();
     }
 
     public static void delFile(String fileName) {
-        File file = new File(SDPATH + fileName);
+        File file = new File(PathConfig.getImagePath() + fileName);
         if (file.isFile()) {
             file.delete();
         }
@@ -136,7 +134,7 @@ public class PhotoFileUtils {
     }
 
     public static void deleteDir() {
-        File dir = new File(SDPATH);
+        File dir = new File(PathConfig.getImagePath());
         if (dir == null || !dir.exists() || !dir.isDirectory())
             return;
 

@@ -24,7 +24,7 @@ public class ImagePickerBaseActivity extends BaseActivity {
      * 选择图片
      */
     protected void getPictrue(ImagePickerLayout idImagePickerContainer) {
-        ArrayList<ImageItem>  imageselectList = idImagePickerContainer.getmImageselectList();
+        ArrayList<ImageItem> imageselectList = idImagePickerContainer.getmImageselectList();
         Intent intent = new Intent(ImagePickerBaseActivity.this, AlbumActivity.class);
         intent.putExtra("photo_num", idImagePickerContainer.getMaxPhotoNum());
         if (imageselectList != null && !imageselectList.isEmpty()) {
@@ -43,17 +43,19 @@ public class ImagePickerBaseActivity extends BaseActivity {
 
     protected void refreshAfterTakePicture(Intent data, ArrayList<ImageItem> mImageselectList, ImagePickerLayout idImagePickerContainer) {
         List<ImageBean> images = data.getParcelableArrayListExtra(TakePictureActivity.KEY_TAKE_IMAGES);
-        for (ImageBean b : images) {
-            ImageItem imageItem = new ImageItem();
-            String path = b.path;
-            imageItem.setImagePath(path);
-            imageItem.setType(2);
-            imageItem.setImageId(System.currentTimeMillis() + "");
-            imageItem.setUri(Uri.fromFile(new File(path)));
-            mImageselectList.add(imageItem);
+        if (null != images && !images.isEmpty()) {
+            for (ImageBean b : images) {
+                ImageItem imageItem = new ImageItem();
+                String path = b.path;
+                imageItem.setImagePath(path);
+                imageItem.setType(2);
+                imageItem.setImageId(System.currentTimeMillis() + "");
+                imageItem.setUri(Uri.fromFile(new File(path)));
+                mImageselectList.add(imageItem);
+            }
+            idImagePickerContainer.setmImageselectList(mImageselectList);
+            idImagePickerContainer.refreshPhotoContentView(mImageselectList);
         }
-        idImagePickerContainer.setmImageselectList(mImageselectList);
-        idImagePickerContainer.refreshPhotoContentView(mImageselectList);
     }
 
     protected void refreshAfterGetPicture(Intent data, ArrayList<ImageItem> mImageselectList, ImagePickerLayout idImagePickerContainer) {

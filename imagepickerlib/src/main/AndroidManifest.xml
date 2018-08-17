@@ -20,12 +20,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".base.BaseActivity"></activity>
+        <activity android:name=".base.BaseActivity" />
 
-        <activity android:name=".TakePictureActivity"></activity>
+        <activity
+            android:name=".TakePictureActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|keyboard" />
 
-        <activity android:name=".localalbum.AlbumActivity"></activity>
-        <activity android:name=".localalbum.GalleryActivity"></activity>
+        <activity android:name=".localalbum.AlbumActivity" />
+        <activity android:name=".localalbum.GalleryActivity" />
     </application>
 
 </manifest>

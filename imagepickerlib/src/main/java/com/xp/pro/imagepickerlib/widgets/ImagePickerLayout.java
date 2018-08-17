@@ -287,6 +287,7 @@ public class ImagePickerLayout extends LinearLayout {
                 }
             }
         });
+        imagePickerContainer.setOlnyViewMode(isOlnyViewMode());
         imagePickerContainer.addView(photoView, imagePickerContainer.getChildCount() - 1, layoutParams);
     }
 

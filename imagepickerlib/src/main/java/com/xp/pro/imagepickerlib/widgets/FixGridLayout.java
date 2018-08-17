@@ -17,6 +17,11 @@ public class FixGridLayout extends ViewGroup {
      */
     private boolean overMaxSize;
 
+    /**
+     * 是否仅显示模式：true:仅显示模式，无法选择、修改或删除
+     */
+    private boolean olnyViewMode;
+
     public FixGridLayout(Context context) {
         super(context);
     }
@@ -50,6 +55,15 @@ public class FixGridLayout extends ViewGroup {
 
     public void setOverMaxSize(boolean overMaxSize) {
         this.overMaxSize = overMaxSize;
+    }
+
+
+    public boolean isOlnyViewMode() {
+        return olnyViewMode;
+    }
+
+    public void setOlnyViewMode(boolean olnyViewMode) {
+        this.olnyViewMode = olnyViewMode;
     }
 
     /**
@@ -117,7 +131,7 @@ public class FixGridLayout extends ViewGroup {
         }
         // 设置容器控件所占区域大小
         // 注意setMeasuredDimension和resolveSize的用法
-        if (isOverMaxSize()) {
+        if (isOlnyViewMode() || isOverMaxSize()) {
             setMeasuredDimension(resolveSize(mCellWidth * (count - 1), widthMeasureSpec),
                     resolveSize(mCellHeight * ((count + 1) / mCellCount), heightMeasureSpec));
         } else {
