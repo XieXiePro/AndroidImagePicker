@@ -13,9 +13,9 @@ public class FixGridLayout extends ViewGroup {
     private int mCellHeight;
     private int mCellCount;
     /**
-     * 是否仅显示模式：true:仅显示模式，无法选择、修改或删除
+     * 是否超过最大图片限制：true:超过，false:未超过
      */
-    private boolean olnyViewMode;
+    private boolean overMaxSize;
 
     public FixGridLayout(Context context) {
         super(context);
@@ -43,12 +43,13 @@ public class FixGridLayout extends ViewGroup {
         mCellCount = count;
     }
 
-    public boolean isOlnyViewMode() {
-        return olnyViewMode;
+
+    public boolean isOverMaxSize() {
+        return overMaxSize;
     }
 
-    public void setOlnyViewMode(boolean olnyViewMode) {
-        this.olnyViewMode = olnyViewMode;
+    public void setOverMaxSize(boolean overMaxSize) {
+        this.overMaxSize = overMaxSize;
     }
 
     /**
@@ -116,7 +117,7 @@ public class FixGridLayout extends ViewGroup {
         }
         // 设置容器控件所占区域大小
         // 注意setMeasuredDimension和resolveSize的用法
-        if (isOlnyViewMode()) {
+        if (isOverMaxSize()) {
             setMeasuredDimension(resolveSize(mCellWidth * (count - 1), widthMeasureSpec),
                     resolveSize(mCellHeight * ((count + 1) / mCellCount), heightMeasureSpec));
         } else {

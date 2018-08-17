@@ -168,7 +168,6 @@ public class ImagePickerLayout extends LinearLayout {
         imagePickerContainer.setmCellCount(sizePhotoNum);
         imagePickerContainer.setmCellHeight(mPhotoItemWidth);
         imagePickerContainer.setmCellWidth(mPhotoItemWidth);
-        imagePickerContainer.setOlnyViewMode(olnyViewMode);
 
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(mPhotoItemWidth, mPhotoItemWidth + 10);
         photoView = LayoutInflater.from(context).inflate(R.layout.item_picker_grid, null);
@@ -229,8 +228,10 @@ public class ImagePickerLayout extends LinearLayout {
     private void switchPlusItemStatus() {
         if (imagePickerContainer.getChildCount() > maxPhotoNum) {
             imagePickerContainer.getChildAt(imagePickerContainer.getChildCount() - 1).setVisibility(View.GONE);
+            imagePickerContainer.setOverMaxSize(true);
         } else {
             imagePickerContainer.getChildAt(imagePickerContainer.getChildCount() - 1).setVisibility(View.VISIBLE);
+            imagePickerContainer.setOverMaxSize(false);
         }
     }
 
@@ -286,8 +287,6 @@ public class ImagePickerLayout extends LinearLayout {
                 }
             }
         });
-        //添加图片之前设置图片模式
-        imagePickerContainer.setOlnyViewMode(isOlnyViewMode());
         imagePickerContainer.addView(photoView, imagePickerContainer.getChildCount() - 1, layoutParams);
     }
 
