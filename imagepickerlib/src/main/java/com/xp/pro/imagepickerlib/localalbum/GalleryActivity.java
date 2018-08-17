@@ -42,8 +42,6 @@ public class GalleryActivity extends BaseActivity {
     private MyPageAdapter adapter;
     private ArrayList<ImageItem> imageItemList;
     private String complete;
-
-    //private Context mContext;
     private ImageLoader mImageLoader = ImageLoader.getInstance();
 
     @Override
@@ -58,7 +56,7 @@ public class GalleryActivity extends BaseActivity {
         if (imageItemList == null) {
             return;
         }
-        complete ="("+imageItemList.size() + "/" + intent.getIntExtra("photo_num",0) + ")"+getResources().getString(R.string.finish);
+        complete = "(" + imageItemList.size() + "/" + intent.getIntExtra("photo_num", 0) + ")" + getResources().getString(R.string.finish);
         send_bt = (TextView) findViewById(R.id.send_button);
         focus_send = (FrameLayout) findViewById(R.id.focus_send);
         focus_send.setOnClickListener(new GallerySendListener());
@@ -129,10 +127,7 @@ public class GalleryActivity extends BaseActivity {
         PhotoView img = new PhotoView(this);
         img.setBackgroundColor(0xff000000);
         mImageLoader.display(img, uri);
-//        img.setImageBitmap(bm);
-//        img.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        img.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT));
+        img.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         listViews.add(img);
     }
 
@@ -147,12 +142,10 @@ public class GalleryActivity extends BaseActivity {
     }
 
     public void isShowOkBt() {
-        if (imageItemList.size() > 0) {
+        if (null != imageItemList && !imageItemList.isEmpty()) {
             send_bt.setText(complete);
-//            focus_send.setPressed(true);
             focus_send.setClickable(true);
         } else {
-//            focus_send.setPressed(false);
             focus_send.setClickable(false);
         }
     }

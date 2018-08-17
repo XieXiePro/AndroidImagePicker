@@ -70,7 +70,7 @@ public class AlbumActivity extends BaseActivity {
     // 预览按钮的监听
     private class PreviewListener implements OnClickListener {
         public void onClick(View v) {
-            if (mImageselectList.size() > 0) {
+            if (null != mImageselectList && !mImageselectList.isEmpty()) {
                 Intent intent = new Intent(AlbumActivity.this, GalleryActivity.class);
                 intent.putExtra("position", "1");
                 intent.putExtra("photo_num", photo_num);
@@ -192,22 +192,20 @@ public class AlbumActivity extends BaseActivity {
                                 toggleButton.setChecked(false);
                                 chooseBt.setVisibility(View.GONE);
                                 if (!removeOneData(dataList.get(position))) {
-                                    showNotifyMessage("超出可选图片张数");
+                                    showNotifyMessage("最多可选" + photo_num + "张图片");
                                 }
                                 return;
                             }
                             chooseBt.setVisibility(View.VISIBLE);
                             if (mImageselectList == null) {
-                                mImageselectList = new ArrayList<ImageItem>();
+                                mImageselectList = new ArrayList<>();
                             }
                             mImageselectList.add(dataList.get(position));
-                            okButton.setText("(" + getSeleteImageCount() + "/"
-                                    + photo_num + ")" + getString(R.string.finish));
+                            okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
                         } else {
                             removeItemFromList(dataList.get(position));
                             chooseBt.setVisibility(View.GONE);
-                            okButton.setText("(" + getSeleteImageCount() + "/"
-                                    + photo_num + ")" + getString(R.string.finish));
+                            okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
                         }
                         if (getSeleteImageCount() > 0) {
                             preview.setVisibility(View.VISIBLE);
@@ -217,9 +215,7 @@ public class AlbumActivity extends BaseActivity {
                         isShowOkBt();
                     }
                 });
-
         focus_ok_button.setOnClickListener(new AlbumSendListener());
-
     }
 
     private void removeItemFromList(ImageItem imageItem) {
@@ -236,8 +232,7 @@ public class AlbumActivity extends BaseActivity {
     private boolean removeOneData(ImageItem imageItem) {
         if (mImageselectList.contains(imageItem)) {
             mImageselectList.remove(imageItem);
-            okButton.setText("(" + getSeleteImageCount() + "/"
-                    + photo_num + ")" + getString(R.string.finish));
+            okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
             return true;
         }
         return false;

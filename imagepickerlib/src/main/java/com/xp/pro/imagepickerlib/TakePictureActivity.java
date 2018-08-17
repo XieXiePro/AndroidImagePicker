@@ -81,7 +81,8 @@ public class TakePictureActivity extends BaseActivity {
     private void takePhoto(String authority) {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             fileName = System.currentTimeMillis() + "";
-            dirPath = PathConfig.getImagePath();
+            //拍照路径设置为应用根目录
+            dirPath = PathConfig.getBasePath();
             File tempFile = new File(dirPath);
             if (!tempFile.exists()) {
                 tempFile.mkdirs();

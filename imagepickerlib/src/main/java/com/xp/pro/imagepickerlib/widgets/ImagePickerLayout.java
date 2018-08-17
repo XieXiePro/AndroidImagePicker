@@ -14,6 +14,7 @@ import com.xp.pro.imagepickerlib.R;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.utils.DisplayUtil;
 import com.xp.pro.imagepickerlib.utils.ImageLoader;
+import com.xp.pro.imagepickerlib.utils.PathConfig;
 import com.xp.pro.imagepickerlib.utils.PhotoFileUtils;
 
 import java.util.ArrayList;
@@ -216,6 +217,8 @@ public class ImagePickerLayout extends LinearLayout {
                     files.add(PhotoFileUtils.saveBitmap(context,
                             mImageselectList.get(i).uri,
                             mImageselectList.get(i).imageId));
+                    //拍照或选择图片后，设置显示路径为Cache路径
+                    mImageselectList.get(i).setImagePath(PathConfig.getImagePath() +"/"+ mImageselectList.get(i).imageId + ".jpg");
                 }
                 addPhotoItem(mImageselectList, mImageselectList.get(i));
                 switchPlusItemStatus();
