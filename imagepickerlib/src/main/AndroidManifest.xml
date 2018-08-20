@@ -24,7 +24,8 @@
 
         <activity
             android:name=".TakePictureActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|keyboard" />
+            android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
+            android:screenOrientation="portrait" />
 
         <activity android:name=".localalbum.AlbumActivity" />
         <activity android:name=".localalbum.GalleryActivity" />

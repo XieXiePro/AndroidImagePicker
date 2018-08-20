@@ -47,8 +47,6 @@ public class ImagePickerLayout extends LinearLayout {
     private int mPhotoItemWidth;
 
     private final ImageLoader mImageLoader = ImageLoader.getInstance();
-
-    private ArrayList<Object> files;
     /**
      * 存放选择图片集合,需区分选择控件位置
      */
@@ -209,15 +207,11 @@ public class ImagePickerLayout extends LinearLayout {
     public void refreshPhotoContentView(ArrayList<ImageItem> mImageselectList) {
         if (null != mImageselectList && !mImageselectList.isEmpty()) {
             int size = mImageselectList.size();
-            files = null;
-            files = new ArrayList<>();
             clearPhotoItem();
             for (int i = 0; i < size; i++) {
                 if (!TextUtils.isEmpty(mImageselectList.get(i).imagePath) && mImageselectList.get(i).getType() != 1) {
-                    files.add(PhotoFileUtils.saveBitmap(context,
-                            mImageselectList.get(i).uri,
-                            mImageselectList.get(i).imageId));
                     //拍照或选择图片后，设置显示路径为Cache路径
+                    PhotoFileUtils.saveBitmap(context, mImageselectList.get(i).uri, mImageselectList.get(i).imageId);
                     mImageselectList.get(i).setImagePath(PathConfig.getImagePath() +"/"+ mImageselectList.get(i).imageId + ".jpg");
                 }
                 addPhotoItem(mImageselectList, mImageselectList.get(i));
@@ -275,11 +269,6 @@ public class ImagePickerLayout extends LinearLayout {
             public void onClick(View v) {
                 int index = imagePickerContainer.indexOfChild((View) v.getTag());
                 if (index > -1) {
-                    if (files != null) {
-                        if (index < files.size()) {
-                            files.remove(index);
-                        }
-                    }
                     if (index < mImageselectList.size()) {
                         mImageselectList.remove(index);
                     }
