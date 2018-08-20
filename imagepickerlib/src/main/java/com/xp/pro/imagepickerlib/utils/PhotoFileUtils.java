@@ -70,6 +70,43 @@ public class PhotoFileUtils {
     }
 
     /**
+     * 报错bitmap
+     *
+     * @param context
+     * @param uri     图片uri
+     * @param picName 图片名
+     * @return
+     */
+    public static String savePhotoBitmap(Context context, Uri uri, String picName) {
+        try {
+            Bitmap bm = getThumbnail(context, uri);
+            if (null != bm) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                int degree = getBitmapDegree(picName);
+                //图片被系统旋转,那我们就要把它转回来
+                if (degree != 0) {
+                    bm = rotateBitmapByDegree(bm, degree);
+                }
+                //给图片添加水印
+                bm = setDateBitmap(bm);
+                //压缩图片
+                bm.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+                FileOutputStream fos = new FileOutputStream(picName);
+                fos.write(baos.toByteArray());
+                fos.flush();
+                fos.close();
+                if (!bm.isRecycled()) {
+                    bm.recycle();
+                }
+                return picName;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
      * 通过uri来转成bitmap
      *
      * @param context

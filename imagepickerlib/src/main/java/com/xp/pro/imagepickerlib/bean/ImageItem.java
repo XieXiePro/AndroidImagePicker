@@ -12,6 +12,10 @@ public class ImageItem implements Serializable, Parcelable {
     public String imagePath;
     public String imgneturl;
     /**
+     * 是否已添加水印：false：未添加，true：已添加
+     */
+    public boolean isMark;
+    /**
      * 0:从相册选择获取图片；1:从网络获取图片；2:从拍照获取图片
      */
     public int type;
@@ -75,6 +79,13 @@ public class ImageItem implements Serializable, Parcelable {
         this.isSelected = isSelected;
     }
 
+    public boolean isMark() {
+        return isMark;
+    }
+
+    public void setMark(boolean mark) {
+        isMark = mark;
+    }
 
     public ImageItem() {
     }
@@ -92,6 +103,7 @@ public class ImageItem implements Serializable, Parcelable {
         dest.writeString(this.imgneturl);
         dest.writeInt(this.type);
         dest.writeParcelable(this.uri, flags);
+        dest.writeByte(this.isMark ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isSelected ? (byte) 1 : (byte) 0);
     }
 
@@ -102,6 +114,7 @@ public class ImageItem implements Serializable, Parcelable {
         this.imgneturl = in.readString();
         this.type = in.readInt();
         this.uri = in.readParcelable(Uri.class.getClassLoader());
+        this.isMark = in.readByte() != 0;
         this.isSelected = in.readByte() != 0;
     }
 
