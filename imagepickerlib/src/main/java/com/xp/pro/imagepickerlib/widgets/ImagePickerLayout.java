@@ -14,7 +14,6 @@ import com.xp.pro.imagepickerlib.R;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.utils.DisplayUtil;
 import com.xp.pro.imagepickerlib.utils.ImageLoader;
-import com.xp.pro.imagepickerlib.utils.PathConfig;
 import com.xp.pro.imagepickerlib.utils.PhotoFileUtils;
 
 import java.util.ArrayList;
@@ -212,8 +211,7 @@ public class ImagePickerLayout extends LinearLayout {
                 if (!TextUtils.isEmpty(mImageselectList.get(i).imagePath) && mImageselectList.get(i).getType() != 1) {
                     if (mImageselectList.get(i).getType() == 0 && !mImageselectList.get(i).isMark()) {
                         //选择图片后，设置显示路径为Cache路径
-                        PhotoFileUtils.saveBitmap(context, mImageselectList.get(i).uri, mImageselectList.get(i).imageId);
-                        mImageselectList.get(i).setImagePath(PathConfig.getImagePath() + "/" + mImageselectList.get(i).imageId + ".jpg");
+                        mImageselectList.get(i).setImagePath(PhotoFileUtils.saveBitmap(context, mImageselectList.get(i).uri, mImageselectList.get(i).imageId));
                         mImageselectList.get(i).setMark(true);
                     } else if (mImageselectList.get(i).getType() == 2 && !mImageselectList.get(i).isMark()) {
                         //如果是拍照，直接修改图片
