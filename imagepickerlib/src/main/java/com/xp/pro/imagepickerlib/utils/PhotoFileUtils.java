@@ -45,11 +45,11 @@ public class PhotoFileUtils {
                 File f = new File(PathConfig.getImagePath(), picName + ".jpg");
                 f.deleteOnExit();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                int degree = getBitmapDegree(f.getAbsolutePath());
-                //图片被系统旋转,那我们就要把它转回来
-                if (degree != 0) {
-                    bm = rotateBitmapByDegree(bm, degree);
-                }
+//                int degree = getBitmapDegree(f.getAbsolutePath());
+//                //图片被系统旋转,那我们就要把它转回来
+//                if (degree != 0) {
+//                    bm = rotateBitmapByDegree(bm, degree);
+//                }
                 //给图片添加水印
                 bm = setDateBitmap(bm);
                 //压缩图片
@@ -82,11 +82,11 @@ public class PhotoFileUtils {
             Bitmap bm = getThumbnail(context, uri);
             if (null != bm) {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                int degree = getBitmapDegree(picName);
-                //图片被系统旋转,那我们就要把它转回来
-                if (degree != 0) {
-                    bm = rotateBitmapByDegree(bm, degree);
-                }
+//                int degree = getBitmapDegree(picName);
+//                //图片被系统旋转,那我们就要把它转回来
+//                if (degree != 0) {
+//                    bm = rotateBitmapByDegree(bm, degree);
+//                }
                 //给图片添加水印
                 bm = setDateBitmap(bm);
                 //压缩图片
