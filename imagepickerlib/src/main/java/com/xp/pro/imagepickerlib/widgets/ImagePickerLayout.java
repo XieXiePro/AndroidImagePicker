@@ -15,6 +15,7 @@ import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.utils.DisplayUtil;
 import com.xp.pro.imagepickerlib.utils.ImageLoader;
 import com.xp.pro.imagepickerlib.utils.PhotoFileUtils;
+import com.xp.pro.imagepickerlib.utils.ThreadUtils;
 
 import java.util.ArrayList;
 
@@ -203,23 +204,35 @@ public class ImagePickerLayout extends LinearLayout {
     /**
      * 刷新发布界面中，发布图片信息
      */
-    public void refreshPhotoContentView(ArrayList<ImageItem> mImageselectList) {
-        if (null != mImageselectList && !mImageselectList.isEmpty()) {
-            int size = mImageselectList.size();
-            clearPhotoItem();
-            for (int i = 0; i < size; i++) {
-                if (!TextUtils.isEmpty(mImageselectList.get(i).imagePath) && mImageselectList.get(i).getType() != 1) {
-                    if (mImageselectList.get(i).getType() == 0 && !mImageselectList.get(i).isMark()) {
-                        //选择图片后，设置显示路径为Cache路径
-                        mImageselectList.get(i).setImagePath(PhotoFileUtils.saveBitmap(context, mImageselectList.get(i).uri, mImageselectList.get(i).imageId));
-                        mImageselectList.get(i).setMark(true);
-                    } else if (mImageselectList.get(i).getType() == 2 && !mImageselectList.get(i).isMark()) {
-                        //如果是拍照，直接修改图片
-                        PhotoFileUtils.savePhotoBitmap(context, mImageselectList.get(i).uri, mImageselectList.get(i).imagePath);
-                        mImageselectList.get(i).setMark(true);
+    public void refreshPhotoContentView(final ArrayList<ImageItem> mImageselectList) {
+        //处理耗时操作
+        ThreadUtils.runOnNonUIthread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (null != mImageselectList && !mImageselectList.isEmpty()) {
+                            for (ImageItem imageItem : mImageselectList) {
+                                if (!TextUtils.isEmpty(imageItem.imagePath) && imageItem.getType() != 1) {
+                                    if (imageItem.getType() == 0 && !imageItem.isMark()) {
+                                        //选择图片后，设置显示路径为Cache路径
+                                        imageItem.setImagePath(PhotoFileUtils.saveBitmap(context, imageItem.uri, imageItem.imageId));
+                                        imageItem.setMark(true);
+                                    } else if (imageItem.getType() == 2 && !imageItem.isMark()) {
+                                        //如果是拍照，直接修改图片
+                                        PhotoFileUtils.savePhotoBitmap(context, imageItem.uri, imageItem.imagePath);
+                                        imageItem.setMark(true);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                addPhotoItem(mImageselectList, mImageselectList.get(i));
+        );
+        //处理界面操作
+        if (null != mImageselectList && !mImageselectList.isEmpty()) {
+            clearPhotoItem();
+            for (ImageItem imageItem : mImageselectList) {
+                addPhotoItem(mImageselectList, imageItem);
                 switchPlusItemStatus();
             }
         } else {
