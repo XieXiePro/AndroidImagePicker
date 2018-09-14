@@ -1,6 +1,8 @@
 package com.xp.pro.imagepickerlib.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,10 +14,13 @@ import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,15 +50,12 @@ public class PhotoFileUtils {
                 File f = new File(PathConfig.getImagePath(), picName + ".jpg");
                 f.deleteOnExit();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                int degree = getBitmapDegree(f.getAbsolutePath());
-//                //图片被系统旋转,那我们就要把它转回来
-//                if (degree != 0) {
-//                    bm = rotateBitmapByDegree(bm, degree);
-//                }
+                //如果图片尺寸过大，对图片进行缩放
+                revitionImageSize(f.getAbsolutePath());
                 //给图片添加水印
                 bm = setDateBitmap(bm);
                 //压缩图片
-                bm.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+                bm.compress(Bitmap.CompressFormat.JPEG, 10, baos);
                 FileOutputStream fos = new FileOutputStream(f);
                 fos.write(baos.toByteArray());
                 fos.flush();
@@ -87,10 +89,12 @@ public class PhotoFileUtils {
                 if (degree != 0) {
                     bm = rotateBitmapByDegree(bm, degree);
                 }
+                //如果图片尺寸过大，对图片进行缩放
+                revitionImageSize(picName);
                 //给图片添加水印
                 bm = setDateBitmap(bm);
                 //压缩图片
-                bm.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+                bm.compress(Bitmap.CompressFormat.JPEG, 10, baos);
                 FileOutputStream fos = new FileOutputStream(picName);
                 fos.write(baos.toByteArray());
                 fos.flush();
@@ -296,5 +300,47 @@ public class PhotoFileUtils {
             bm.recycle();
         }
         return returnBm;
+    }
+
+    /**
+     * 修改图片尺寸
+     *
+     * @param path 图片路径
+     */
+    public static Bitmap revitionImageSize(String path) {
+        Bitmap bitmap = null;
+        BufferedInputStream in = null;
+        try {
+            in = new BufferedInputStream(new FileInputStream(new File(path)));
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(in, null, options);
+            in.close();
+            int i = 0;
+            while (true) {
+                if ((options.outWidth >> i <= 1000)
+                        && (options.outHeight >> i <= 1000)) {
+                    in = new BufferedInputStream(new FileInputStream(new File(
+                            path)));
+                    options.inSampleSize = (int) Math.pow(2.0D, i);
+                    options.inJustDecodeBounds = false;
+                    bitmap = BitmapFactory.decodeStream(in, null, options);
+                    break;
+                }
+                i += 1;
+            }
+
+        } catch (IOException e) {
+            Log.e("PhotoUtils", "revitionImageSize: ", e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log.e("PhotoUtils", "revitionImageSize: ", e);
+                }
+            }
+        }
+        return bitmap;
     }
 }

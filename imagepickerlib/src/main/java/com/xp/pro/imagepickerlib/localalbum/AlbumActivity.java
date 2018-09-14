@@ -1,8 +1,11 @@
 package com.xp.pro.imagepickerlib.localalbum;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +19,7 @@ import com.xp.pro.imagepickerlib.R;
 import com.xp.pro.imagepickerlib.base.BaseActivity;
 import com.xp.pro.imagepickerlib.bean.ImageBucket;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
+import com.xp.pro.imagepickerlib.global.Params;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,10 +30,7 @@ import java.util.List;
  * @Description 这个是进入相册显示所有图片的界面
  */
 public class AlbumActivity extends BaseActivity {
-    // 显示手机里的所有图片的列表控件
-    //private GridView mGridView;
-    // 当手机里没有图片时，提示用户没有图片的控件
-    //private TextView tv;
+
     // gridView的adapter
     private AlbumGridViewAdapter gridImageAdapter;
     // 完成按钮
@@ -80,41 +81,6 @@ public class AlbumActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQUEST_CODE_PREVIEW: {
-                if (resultCode == RESULT_OK) {
-                    ArrayList<ImageItem> imageItems = null;
-                    if (data != null) {
-                        imageItems = data.getParcelableArrayListExtra(KEY_PREVIEW_PHOTO);
-                    }
-                    if (imageItems != null && mImageselectList.size() != imageItems.size()) {
-                        Iterator itr = mImageselectList.iterator();
-                        boolean isEqual = false;
-                        while (itr.hasNext()) {
-                            isEqual = false;
-                            ImageItem item = (ImageItem) itr.next();
-                            for (ImageItem temp : imageItems) {
-                                if (item.getImageId().equals(temp.getImageId())) {
-                                    isEqual = true;
-                                    break;
-                                }
-                            }
-                            if (!isEqual) {
-                                itr.remove();
-                            }
-                        }
-                        gridImageAdapter.notifyDataSetChanged();
-                        mImageselectList = imageItems;
-                    }
-                }
-            }
-            break;
-        }
-    }
-
     // 完成按钮的监听
     private class AlbumSendListener implements OnClickListener {
         public void onClick(View v) {
@@ -160,10 +126,13 @@ public class AlbumActivity extends BaseActivity {
         focus_ok_button = (FrameLayout) findViewById(R.id.focus_ok_button);
         okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + "完成");
 
-        setRightButtonShow("取消", new OnClickListener() {
+        setRightButtonShow("相册", new OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //进入相册功能
+                Intent intent = new Intent(Intent.ACTION_PICK, null);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent, Params.PHOTO_REQUEST_GALLERY);
             }
         });
         setBackButtonShow(new OnClickListener() {
@@ -172,6 +141,69 @@ public class AlbumActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_PREVIEW: {
+                if (resultCode == RESULT_OK) {
+                    ArrayList<ImageItem> imageItems = null;
+                    if (data != null) {
+                        imageItems = data.getParcelableArrayListExtra(KEY_PREVIEW_PHOTO);
+                    }
+                    if (imageItems != null && mImageselectList.size() != imageItems.size()) {
+                        Iterator itr = mImageselectList.iterator();
+                        boolean isEqual = false;
+                        while (itr.hasNext()) {
+                            isEqual = false;
+                            ImageItem item = (ImageItem) itr.next();
+                            for (ImageItem temp : imageItems) {
+                                if (item.getImageId().equals(temp.getImageId())) {
+                                    isEqual = true;
+                                    break;
+                                }
+                            }
+                            if (!isEqual) {
+                                itr.remove();
+                            }
+                        }
+                        gridImageAdapter.notifyDataSetChanged();
+                        mImageselectList = imageItems;
+                    }
+                }
+            }
+            break;
+            case Params.PHOTO_REQUEST_GALLERY:
+                // 当选择从本地获取图片时
+                if (resultCode == Activity.RESULT_OK) {
+                    String imgPath;
+                    Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        //安卓7.0以上，4才是路径，但低版本安卓，1是路径。
+                        imgPath = cursor.getString(4);
+                        //如果不是路径，就再找找。
+                        if (!imgPath.contains("/storage/")) {
+                            //找个6次应该就差不多了，7、8.。。。后面一般都是null
+                            for (int i = 0; i < 7; i++) {
+                                if (cursor.getString(i).contains("/storage/")) {
+                                    imgPath = cursor.getString(i);
+                                    break;
+                                }
+                            }
+                        }
+                        cursor.close();
+                    } else {
+                        imgPath = data.getDataString().replace("file://", "");
+                    }
+//                    String s = DateUtil.format(new Date(), "yyyyMMddHHmmss") + ".jpg";
+//                    Files.FileCache.copyFile(imgPath, Files.getPhotoPath() + s);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private int getSeleteImageCount() {

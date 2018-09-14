@@ -16,7 +16,10 @@ import com.xp.pro.imagepickerlib.R;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.utils.ImageLoader;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * 这个是显示一个文件夹里面的所有图片时用的适配器
@@ -31,12 +34,30 @@ public class AlbumGridViewAdapter extends BaseAdapter {
         this.context = context;
         this.dataList = dataList;
         this.selectedDataList = selectedDataList;
+        //每创建一次相册，加载一次图片
+
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
         //将已选中的图片加入对应图片中
         for (int position = 0; position < dataList.size(); position++) {
             dataList.get(position).setSelected(isHadSelected(dataList.get(position)));
         }
+        //相册图片按照文件创建时间排序
+        Collections.sort(dataList, new Comparator<ImageItem>() {
+            @Override
+            public int compare(ImageItem o1, ImageItem o2) {
+                long o1Time = new File(o1.getUri().getPath()).lastModified();
+                long o2Time = new File(o2.getUri().getPath()).lastModified();
+                if (o1Time < o2Time) {
+                    return 1;
+                } else if (o1Time == o2Time) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+//                return Long.compare(o1Time, o2Time);
+            }
+        });
     }
 
     private boolean isHadSelected(ImageItem imageItem) {
@@ -73,6 +94,7 @@ public class AlbumGridViewAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
+        convertView = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.plugin_camera_select_imageview, parent, false);

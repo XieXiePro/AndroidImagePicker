@@ -89,7 +89,6 @@ public class AlbumHelper {
         Cursor cursor = cr.query(Albums.EXTERNAL_CONTENT_URI, projection, null,
                 null, null);
         getAlbumColumnData(cursor);
-
     }
 
     private void getAlbumColumnData(Cursor cur) {
@@ -168,7 +167,6 @@ public class AlbumHelper {
                 String bucketName = cur.getString(bucketDisplayNameIndex);
                 String bucketId = cur.getString(bucketIdIndex);
                 String picasaId = cur.getString(picasaIdIndex);
-
 //				Log.i(TAG, _id + ", bucketId: " + bucketId + ", picasaId: "
 //						+ picasaId + " name:" + name + " path:" + path
 //						+ " title: " + title + " size: " + size + " bucket: "

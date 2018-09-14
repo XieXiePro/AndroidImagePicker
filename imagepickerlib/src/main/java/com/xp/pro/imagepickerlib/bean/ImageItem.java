@@ -137,6 +137,7 @@ public class ImageItem implements Serializable, Parcelable {
                 ", thumbnailPath='" + thumbnailPath + '\'' +
                 ", imagePath='" + imagePath + '\'' +
                 ", imgneturl='" + imgneturl + '\'' +
+                ", isMark=" + isMark +
                 ", type=" + type +
                 ", uri=" + uri +
                 ", isSelected=" + isSelected +
