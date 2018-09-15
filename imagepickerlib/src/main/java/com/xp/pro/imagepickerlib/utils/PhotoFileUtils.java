@@ -1,8 +1,6 @@
 package com.xp.pro.imagepickerlib.utils;
 
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -14,7 +12,6 @@ import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -51,7 +48,7 @@ public class PhotoFileUtils {
                 f.deleteOnExit();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 //如果图片尺寸过大，对图片进行缩放
-                revitionImageSize(f.getAbsolutePath());
+//                revitionImageSize(PathConfig.getImagePath() + "/" + picName + ".jpg");
                 //给图片添加水印
                 bm = setDateBitmap(bm);
                 //压缩图片
@@ -90,7 +87,7 @@ public class PhotoFileUtils {
                     bm = rotateBitmapByDegree(bm, degree);
                 }
                 //如果图片尺寸过大，对图片进行缩放
-                revitionImageSize(picName);
+//                revitionImageSize(picName);
                 //给图片添加水印
                 bm = setDateBitmap(bm);
                 //压缩图片

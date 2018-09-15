@@ -35,9 +35,9 @@ public class AlbumHelper {
     }
 
     public static AlbumHelper getHelper() {
-        if (instance == null) {
+//        if (instance == null) {
             instance = new AlbumHelper();
-        }
+//        }
         return instance;
     }
 

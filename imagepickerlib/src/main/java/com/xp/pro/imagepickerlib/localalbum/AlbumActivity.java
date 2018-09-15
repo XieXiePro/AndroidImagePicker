@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +29,7 @@ import java.util.List;
  * @Description 这个是进入相册显示所有图片的界面
  */
 public class AlbumActivity extends BaseActivity {
-
+    GridView mGridView;
     // gridView的adapter
     private AlbumGridViewAdapter gridImageAdapter;
     // 完成按钮
@@ -39,7 +38,7 @@ public class AlbumActivity extends BaseActivity {
     private TextView preview;
     private FrameLayout focus_ok_button, focus_preview;
     //private Context mContext;
-    private ArrayList<ImageItem> dataList;
+    private ArrayList<ImageItem> dataList = new ArrayList<>();
     /**
      * 被选中的图片集合
      */
@@ -54,7 +53,6 @@ public class AlbumActivity extends BaseActivity {
 
     private int photo_num = 0;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.plugin_camera_album);
@@ -62,7 +60,13 @@ public class AlbumActivity extends BaseActivity {
         // 注册一个广播，这个广播主要是用于在GalleryActivity进行预览时，防止当所有图片都删除完后，再回到该页面时被取消选中的图片仍处于选中状态
         IntentFilter filter = new IntentFilter("data.broadcast.action");
         //bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.plugin_camera_no_pictures);
-        init();
+        initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getImageList(mGridView);
         initListener();
         // 这个函数主要用来控制预览和完成按钮的状态
         isShowOkBt();
@@ -95,52 +99,57 @@ public class AlbumActivity extends BaseActivity {
     }
 
     // 初始化，给一些对象赋值
-    private void init() {
+    private void initView() {
         setTitle("选择图片");
-        Intent data = getIntent();
-        mImageselectList = data.getParcelableArrayListExtra(KEY_PREVIEW_PHOTO);
-        photo_num = data.getIntExtra("photo_num", 0);
-        AlbumHelper helper = AlbumHelper.getHelper();
-        helper.init(getApplicationContext());
-
-        contentList = helper.getImagesBucketList(false);
-        dataList = new ArrayList<>();
-        for (int i = 0; i < contentList.size(); i++) {
-            dataList.addAll(contentList.get(i).imageList);
-        }
-
         preview = (TextView) findViewById(R.id.preview);
-        if (mImageselectList != null && !mImageselectList.isEmpty()) {
-            preview.setVisibility(View.VISIBLE);
-        } else {
-            preview.setVisibility(View.GONE);
-        }
-
         focus_preview = (FrameLayout) findViewById(R.id.focus_preview);
         focus_preview.setOnClickListener(new PreviewListener());
-        GridView mGridView = (GridView) findViewById(R.id.myGrid);
-        gridImageAdapter = new AlbumGridViewAdapter(this, dataList, mImageselectList);
-        mGridView.setAdapter(gridImageAdapter);
+        mGridView = (GridView) findViewById(R.id.myGrid);
         mGridView.setEmptyView(findViewById(R.id.myText));
         okButton = (TextView) findViewById(R.id.ok_button);
         focus_ok_button = (FrameLayout) findViewById(R.id.focus_ok_button);
         okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + "完成");
 
-        setRightButtonShow("相册", new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //进入相册功能
-                Intent intent = new Intent(Intent.ACTION_PICK, null);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(intent, Params.PHOTO_REQUEST_GALLERY);
-            }
-        });
+//        setRightButtonShow("相册", new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //进入相册功能
+//                Intent intent = new Intent(Intent.ACTION_PICK, null);
+//                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//                startActivityForResult(intent, Params.PHOTO_REQUEST_GALLERY);
+//            }
+//        });
         setBackButtonShow(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+    }
+
+    private void getImageList(GridView mGridView) {
+        Intent data = getIntent();
+        mImageselectList = data.getParcelableArrayListExtra(KEY_PREVIEW_PHOTO);
+        photo_num = data.getIntExtra("photo_num", 0);
+        if (mImageselectList != null && !mImageselectList.isEmpty()) {
+            preview.setVisibility(View.VISIBLE);
+        } else {
+            preview.setVisibility(View.GONE);
+        }
+
+        AlbumHelper helper = AlbumHelper.getHelper();
+        helper.init(getApplicationContext());
+
+        contentList = helper.getImagesBucketList(false);
+        //清空相册数据，重新加载
+        dataList.clear();
+        for (int i = 0; i < contentList.size(); i++) {
+            dataList.addAll(contentList.get(i).imageList);
+        }
+        gridImageAdapter = new AlbumGridViewAdapter(this, dataList, mImageselectList);
+        mGridView.setAdapter(gridImageAdapter);
+
+
     }
 
     @Override
@@ -212,41 +221,39 @@ public class AlbumActivity extends BaseActivity {
     }
 
     private void initListener() {
+        gridImageAdapter.setOnItemClickListener(new AlbumGridViewAdapter.OnItemClickListener() {
 
-        gridImageAdapter
-                .setOnItemClickListener(new AlbumGridViewAdapter.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(final ToggleButton toggleButton,
-                                            int position, boolean isChecked, Button chooseBt) {
-                        if (isChecked) {
-                            if (getSeleteImageCount() >= photo_num) {
-                                toggleButton.setChecked(false);
-                                chooseBt.setVisibility(View.GONE);
-                                if (!removeOneData(dataList.get(position))) {
-                                    showNotifyMessage("最多可选" + photo_num + "张图片");
-                                }
-                                return;
-                            }
-                            chooseBt.setVisibility(View.VISIBLE);
-                            if (mImageselectList == null) {
-                                mImageselectList = new ArrayList<>();
-                            }
-                            mImageselectList.add(dataList.get(position));
-                            okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
-                        } else {
-                            removeItemFromList(dataList.get(position));
-                            chooseBt.setVisibility(View.GONE);
-                            okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
+            @Override
+            public void onItemClick(final ToggleButton toggleButton,
+                                    int position, boolean isChecked, Button chooseBt) {
+                if (isChecked) {
+                    if (getSeleteImageCount() >= photo_num) {
+                        toggleButton.setChecked(false);
+                        chooseBt.setVisibility(View.GONE);
+                        if (!removeOneData(dataList.get(position))) {
+                            showNotifyMessage("最多可选" + photo_num + "张图片");
                         }
-                        if (getSeleteImageCount() > 0) {
-                            preview.setVisibility(View.VISIBLE);
-                        } else {
-                            preview.setVisibility(View.GONE);
-                        }
-                        isShowOkBt();
+                        return;
                     }
-                });
+                    chooseBt.setVisibility(View.VISIBLE);
+                    if (mImageselectList == null) {
+                        mImageselectList = new ArrayList<>();
+                    }
+                    mImageselectList.add(dataList.get(position));
+                    okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
+                } else {
+                    removeItemFromList(dataList.get(position));
+                    chooseBt.setVisibility(View.GONE);
+                    okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
+                }
+                if (getSeleteImageCount() > 0) {
+                    preview.setVisibility(View.VISIBLE);
+                } else {
+                    preview.setVisibility(View.GONE);
+                }
+                isShowOkBt();
+            }
+        });
         focus_ok_button.setOnClickListener(new AlbumSendListener());
     }
 
