@@ -1,7 +1,7 @@
 package com.xp.pro.imagepickerlib.bean;
 
 
-import com.xp.pro.imagepickerlib.utils.StringUtils;
+import com.xp.pro.imagepickerlib.utils.StringUtil;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class Folder {
     }
 
     public void addImage(ImageItem image) {
-        if (image != null && StringUtils.isNotEmptyString(image.getImagePath())) {
+        if (image != null && StringUtil.isNotEmptyString(image.getImagePath())) {
             if (images == null) {
                 images = new ArrayList<>();
             }

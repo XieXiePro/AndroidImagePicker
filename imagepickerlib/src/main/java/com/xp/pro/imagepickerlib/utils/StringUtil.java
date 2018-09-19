@@ -18,6 +18,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtil {
+
+
     public static String getUtf8String(String str) {
         try {
             return new String(str.getBytes(), "gb2312");
@@ -30,10 +32,9 @@ public class StringUtil {
     /**
      * 不为null，也不是全是空白字符
      */
-    public static boolean isNotNullAndNotEmpty(String string) {
+    public static boolean isNotEmptyString(final String string) {
         return string != null && string.trim().length() > 0;
     }
-
 
     /**
      * null或空字符串判断
@@ -68,11 +69,11 @@ public class StringUtil {
                     .getInstance("MD5");
             md.update(source);
 
-			/*
+            /*
              *  MD5 的计算结果是一个 128 位的长整数，用字节表示就是 16 个字节，
-			 *  每个字节用 16 进制表示的话，使用两个字符，所以表示成 16 进制需要 32 个字符。
-			 *  不采用String.format进行格式化，String.format比较慢，慢差不多50倍。
-			 */
+             *  每个字节用 16 进制表示的话，使用两个字符，所以表示成 16 进制需要 32 个字符。
+             *  不采用String.format进行格式化，String.format比较慢，慢差不多50倍。
+             */
             byte tmp[] = md.digest();
 
             char str[] = new char[16 * 2];
@@ -195,7 +196,7 @@ public class StringUtil {
 //        final Matcher matcher = patternUrl.matcher(url);
 //        return matcher.matches();
 
-        if( url.startsWith("http://") || url.startsWith("https://") || url.startsWith("ftp://")){
+        if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("ftp://")) {
             return true;
         }
         return false;
@@ -205,14 +206,14 @@ public class StringUtil {
         SpannableStringBuilder spannable = new SpannableStringBuilder(text);
         if (!TextUtils.isEmpty(target)) {
 //            if(target.length() == 1) {
-                CharacterStyle span = null;
-                Pattern p = Pattern.compile(target);
-                Matcher m = p.matcher(text);
-                while (m.find()) {
-                    span = new ForegroundColorSpan(color);// 需要重复！
-                    spannable.setSpan(span, m.start(), m.end(),
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
+            CharacterStyle span = null;
+            Pattern p = Pattern.compile(target);
+            Matcher m = p.matcher(text);
+            while (m.find()) {
+                span = new ForegroundColorSpan(color);// 需要重复！
+                spannable.setSpan(span, m.start(), m.end(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
 //            } else {
 //                fo
 //            }
@@ -222,6 +223,7 @@ public class StringUtil {
 
     /**
      * 拿到Mainfest中写的常量
+     *
      * @param name
      * @return
      */

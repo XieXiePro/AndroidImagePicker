@@ -18,7 +18,7 @@ public class PathConfig {
     }
 
     public static final String getImagePath() {
-        return Path.BASE_PATH + Path.IMAGE_CATCH;
+        return Path.BASE_PATH;
     }
 
 }

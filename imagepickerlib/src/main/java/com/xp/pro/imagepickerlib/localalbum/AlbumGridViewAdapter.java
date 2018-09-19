@@ -30,6 +30,11 @@ public class AlbumGridViewAdapter extends BaseAdapter {
     private ArrayList<ImageItem> selectedDataList;
     private ImageLoader mImageLoader = ImageLoader.getInstance();
 
+    public void refresh(ArrayList<ImageItem> data) {
+        dataList = data;
+        notifyDataSetChanged();
+    }
+
     AlbumGridViewAdapter(Context context, ArrayList<ImageItem> dataList, ArrayList<ImageItem> selectedDataList) {
         this.context = context;
         this.dataList = dataList;

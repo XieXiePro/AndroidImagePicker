@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.xp.pro.imagepickerlib.utils.StringUtils;
+import com.xp.pro.imagepickerlib.utils.StringUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class ImageModel {
             for (int i = 0; i < size; i++) {
                 String path = images.get(i).getImagePath();
                 String name = getFolderName(path);
-                if (StringUtils.isNotEmptyString(name)) {
+                if (StringUtil.isNotEmptyString(name)) {
                     Folder folder = getFolder(name, folders);
                     folder.addImage(images.get(i));
                 }
@@ -120,7 +120,7 @@ public class ImageModel {
      * @return
      */
     private static String getFolderName(String path) {
-        if (StringUtils.isNotEmptyString(path)) {
+        if (StringUtil.isNotEmptyString(path)) {
             String[] strings = path.split(File.separator);
             if (strings.length >= 2) {
                 return strings[strings.length - 2];

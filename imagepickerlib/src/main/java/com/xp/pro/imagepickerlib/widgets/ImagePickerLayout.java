@@ -206,28 +206,28 @@ public class ImagePickerLayout extends LinearLayout {
      */
     public void refreshPhotoContentView(final ArrayList<ImageItem> mImageselectList) {
         //处理耗时操作
-        ThreadUtils.runOnNonUIthread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        if (null != mImageselectList && !mImageselectList.isEmpty()) {
-                            for (ImageItem imageItem : mImageselectList) {
-                                if (!TextUtils.isEmpty(imageItem.imagePath) && imageItem.getType() != 1) {
-                                    if (imageItem.getType() == 0 && !imageItem.isMark()) {
-                                        //选择图片后，设置显示路径为Cache路径
-                                        imageItem.setImagePath(PhotoFileUtils.saveBitmap(context, imageItem.uri, imageItem.imageId));
-                                        imageItem.setMark(true);
-                                    } else if (imageItem.getType() == 2 && !imageItem.isMark()) {
-                                        //如果是拍照，直接修改图片
-                                        PhotoFileUtils.savePhotoBitmap(context, imageItem.uri, imageItem.imagePath);
-                                        imageItem.setMark(true);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-        );
+//        ThreadUtils.runOnNonUIthread(
+//                new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (null != mImageselectList && !mImageselectList.isEmpty()) {
+//                            for (ImageItem imageItem : mImageselectList) {
+//                                if (!TextUtils.isEmpty(imageItem.imagePath) && imageItem.getType() != 1) {
+//                                    if (imageItem.getType() == 0 && !imageItem.isMark()) {
+//                                        //选择图片后，设置显示路径为Cache路径
+//                                        imageItem.setImagePath(PhotoFileUtils.saveBitmap(context, imageItem.uri, imageItem.imageId));
+//                                        imageItem.setMark(true);
+//                                    } else if (imageItem.getType() == 2 && !imageItem.isMark()) {
+//                                        //如果是拍照，直接修改图片
+//                                        PhotoFileUtils.savePhotoBitmap(context, imageItem.uri, imageItem.imagePath);
+//                                        imageItem.setMark(true);
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//        );
         //处理界面操作
         if (null != mImageselectList && !mImageselectList.isEmpty()) {
             clearPhotoItem();

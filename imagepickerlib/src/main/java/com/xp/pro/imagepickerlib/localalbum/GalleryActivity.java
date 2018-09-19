@@ -94,7 +94,7 @@ public class GalleryActivity extends BaseActivity {
             }
         });
 
-        setBackButtonShow(new OnClickListener() {
+        setBackButtonShow("返回",new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

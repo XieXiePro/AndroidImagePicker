@@ -215,12 +215,14 @@ public class BaseActivity extends FragmentActivity {
         }
     }
 
-    protected View setBackButtonShow(View.OnClickListener listener) {
+    protected View setBackButtonShow(String msg, View.OnClickListener listener) {
+        TextView rightText = (TextView) findViewById(R.id.id_global_title_bar_right_seperator_textview);
         View leftLayout = findViewById(R.id.id_global_title_bar_lefe_layout);
-        if (leftLayout != null) {
-            leftLayout.setVisibility(View.VISIBLE);
+        if (rightText != null) {
+            rightText.setText(msg);
+            findViewById(R.id.id_global_title_bar_lefe_layout).setVisibility(View.VISIBLE);
             if (listener != null) {
-                leftLayout.setOnClickListener(listener);
+                findViewById(R.id.id_global_title_bar_lefe_layout).setOnClickListener(listener);
             }
         }
         return leftLayout;

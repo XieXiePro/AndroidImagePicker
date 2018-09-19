@@ -9,12 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xp.pro.imagepickerlib.R;
 import com.xp.pro.imagepickerlib.bean.Folder;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder> {
