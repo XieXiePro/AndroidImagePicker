@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF9A00</color>
-    <color name="colorPrimaryDark">#E38500</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#ffffff</color>
     <color name="transparent">#00000000</color>
+
+    <color name="colorBtn">#FF9A00</color>
+    <color name="colorBtnPress">#E38500</color>
+
     <color name="C9">#eeeeee</color>  <!-- 反应色 -->
     <!-- 透明黑色背景 -->
     <color name="transparent_bg">#88000000</color>

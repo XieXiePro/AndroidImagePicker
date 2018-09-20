@@ -3,10 +3,8 @@ package com.xp.pro.imagepickerlib.localalbum;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +23,6 @@ import com.xp.pro.imagepickerlib.bean.Folder;
 import com.xp.pro.imagepickerlib.bean.ImageBucket;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.bean.ImageModel;
-import com.xp.pro.imagepickerlib.global.Params;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,6 +32,7 @@ import java.util.List;
 /**
  * @Description 这个是进入相册显示所有图片的界面
  */
+@SuppressWarnings("all")
 public class AlbumActivity extends BaseActivity {
     GridView mGridView;
     // gridView的adapter
@@ -133,9 +131,14 @@ public class AlbumActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                //点击返回，清除选中集合
+//                if (null != mImageselectList && !mImageselectList.isEmpty())
+//                    mImageselectList.clear();
 //                if (isInitFolder) {
 //                    if (isOpenFolder) {
-//                        closeFolder();
+//                        //关闭返回前一页面
+////                        closeFolder();
+//                        finish();
 //                    } else {
 //                        openFolder();
 //                    }
@@ -148,11 +151,11 @@ public class AlbumActivity extends BaseActivity {
         Intent data = getIntent();
         mImageselectList = data.getParcelableArrayListExtra(KEY_PREVIEW_PHOTO);
         photo_num = data.getIntExtra("photo_num", 0);
-//        if (mImageselectList != null && !mImageselectList.isEmpty()) {
-//            preview.setVisibility(View.VISIBLE);
-//        } else {
-//            preview.setVisibility(View.GONE);
-//        }
+        if (mImageselectList != null && !mImageselectList.isEmpty()) {
+            preview.setVisibility(View.VISIBLE);
+        } else {
+            preview.setVisibility(View.GONE);
+        }
 
         AlbumHelper helper = AlbumHelper.getHelper();
         helper.init(getApplicationContext());
@@ -317,40 +320,13 @@ public class AlbumActivity extends BaseActivity {
                 }
             }
             break;
-            case Params.PHOTO_REQUEST_GALLERY:
-                // 当选择从本地获取图片时
-                if (resultCode == Activity.RESULT_OK) {
-                    String imgPath;
-                    Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        //安卓7.0以上，4才是路径，但低版本安卓，1是路径。
-                        imgPath = cursor.getString(4);
-                        //如果不是路径，就再找找。
-                        if (!imgPath.contains("/storage/")) {
-                            //找个6次应该就差不多了，7、8.。。。后面一般都是null
-                            for (int i = 0; i < 7; i++) {
-                                if (cursor.getString(i).contains("/storage/")) {
-                                    imgPath = cursor.getString(i);
-                                    break;
-                                }
-                            }
-                        }
-                        cursor.close();
-                    } else {
-                        imgPath = data.getDataString().replace("file://", "");
-                    }
-//                    String s = DateUtil.format(new Date(), "yyyyMMddHHmmss") + ".jpg";
-//                    Files.FileCache.copyFile(imgPath, Files.getPhotoPath() + s);
-                }
-                break;
             default:
                 break;
         }
     }
 
     private int getSeleteImageCount() {
-        int imageCount = (mImageselectList == null) ? 0 : mImageselectList.size();
-        return imageCount;
+        return (mImageselectList == null) ? 0 : mImageselectList.size();
     }
 
     private void initListener() {
@@ -379,11 +355,11 @@ public class AlbumActivity extends BaseActivity {
                     chooseBt.setVisibility(View.GONE);
                     okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
                 }
-//                if (getSeleteImageCount() > 0) {
-//                    preview.setVisibility(View.VISIBLE);
-//                } else {
-//                    preview.setVisibility(View.GONE);
-//                }
+                if (getSeleteImageCount() > 0) {
+                    preview.setVisibility(View.VISIBLE);
+                } else {
+                    preview.setVisibility(View.GONE);
+                }
                 isShowOkBt();
             }
         });
@@ -419,8 +395,7 @@ public class AlbumActivity extends BaseActivity {
             focus_preview.setClickable(true);
             focus_ok_button.setClickable(true);
         } else {
-            okButton.setText("(" + getSeleteImageCount() + "/"
-                    + photo_num + ")" + getString(R.string.finish));
+            okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
 //            focus_preview.setPressed(false);
             focus_preview.setClickable(false);
 //            focus_ok_button.setPressed(false);

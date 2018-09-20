@@ -42,12 +42,8 @@
 
             <TextView
                 android:id="@+id/ok_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="完成"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                style="@style/btn_orange_round_fill_style"
+                android:text="完成" />
         </FrameLayout>
     </RelativeLayout>
 

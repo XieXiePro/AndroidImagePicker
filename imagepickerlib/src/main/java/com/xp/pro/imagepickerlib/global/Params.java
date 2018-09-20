@@ -16,8 +16,4 @@ public class Params {
      * 选择图片
      */
     public static final  int GET_PICTURE = 0x000002;
-    /**
-     * 从相册中选择
-     */
-    public static final int PHOTO_REQUEST_GALLERY = 0x000003;
 }

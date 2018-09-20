@@ -42,10 +42,10 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         holder.tvFolderName.setText(folder.getName());
         holder.ivSelect.setVisibility(mSelectItem == position ? View.VISIBLE : View.GONE);
         if (images != null && !images.isEmpty()) {
-            holder.tvFolderSize.setText(images.size() + "张");
+            holder.tvFolderSize.setText("（" + images.size() + "）");
             Glide.with(mContext).load(images.get(0).getImagePath()).into(holder.ivImage);
         } else {
-            holder.tvFolderSize.setText("0张");
+            holder.tvFolderSize.setText("（0）");
             holder.ivImage.setImageBitmap(null);
         }
 
@@ -79,15 +79,14 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ivImage = (ImageView)itemView.findViewById(R.id.iv_image);
-            ivSelect = (ImageView)itemView.findViewById(R.id.iv_select);
-            tvFolderName = (TextView)itemView.findViewById(R.id.tv_folder_name);
-            tvFolderSize = (TextView)itemView.findViewById(R.id.tv_folder_size);
+            ivImage = (ImageView) itemView.findViewById(R.id.iv_image);
+            ivSelect = (ImageView) itemView.findViewById(R.id.iv_select);
+            tvFolderName = (TextView) itemView.findViewById(R.id.tv_folder_name);
+            tvFolderSize = (TextView) itemView.findViewById(R.id.tv_folder_size);
         }
     }
 
     public interface OnFolderSelectListener {
         void OnFolderSelect(Folder folder);
     }
-
 }
