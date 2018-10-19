@@ -118,6 +118,7 @@ public class AlbumActivity extends BaseActivity {
         mGridView.setEmptyView(findViewById(R.id.myText));
         okButton = (TextView) findViewById(R.id.ok_button);
         focus_ok_button = (FrameLayout) findViewById(R.id.focus_ok_button);
+        focus_ok_button.setVisibility(View.VISIBLE);
         okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + "完成");
         rvFolder = (RecyclerView) findViewById(R.id.rv_folder);
         masking = findViewById(R.id.masking);
@@ -398,8 +399,8 @@ public class AlbumActivity extends BaseActivity {
             okButton.setText("(" + getSeleteImageCount() + "/" + photo_num + ")" + getString(R.string.finish));
 //            focus_preview.setPressed(false);
             focus_preview.setClickable(false);
-//            focus_ok_button.setPressed(false);
-            focus_ok_button.setClickable(true);
+            focus_ok_button.setPressed(false);
+//            focus_ok_button.setClickable(true);
         }
     }
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="color_primary">#000000</color>
+    <color name="color_primary_dark">#000000</color>
+    <color name="color_accent">#ffffff</color>
     <color name="transparent">#00000000</color>
 
-    <color name="colorBtn">#FF9A00</color>
-    <color name="colorBtnPress">#E38500</color>
+    <color name="color_btn">#FF9A00</color>
+    <color name="color_btn_press">#E38500</color>
 
     <color name="C9">#eeeeee</color>  <!-- 反应色 -->
     <!-- 透明黑色背景 -->

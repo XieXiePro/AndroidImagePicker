@@ -72,7 +72,7 @@ public class ImageLoader {
         Context context = getContext(target.getView());
         if (null != context) {
             url = checkSaveFlow(target.getView(), url);
-            Glide.with(context).load(url).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).crossFade().into(target);
+            Glide.with(context).load(url).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).dontAnimate().crossFade().into(target);
         }
     }
 
@@ -87,7 +87,7 @@ public class ImageLoader {
     public <T extends ImageView> void display(T container, Uri uri) {
         Context context = getContext(container);
         if (null != context) {
-            Glide.with(context).load(uri).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).crossFade().into(container);
+            Glide.with(context).load(uri).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).dontAnimate().crossFade().into(container);
         }
     }
 
@@ -144,7 +144,7 @@ public class ImageLoader {
     public <T extends ImageView> void display(T container, Uri uri, float thumbnail) {
         Context context = getContext(container);
         if (null != context) {
-            Glide.with(context).load(uri).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).thumbnail(thumbnail).crossFade().into(container);
+            Glide.with(context).load(uri).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).dontAnimate().thumbnail(thumbnail).crossFade().into(container);
         }
     }
 
@@ -160,7 +160,7 @@ public class ImageLoader {
     public <T extends ImageView> void display(T container, String url, float thumbnail) {
         Context context = getContext(container);
         if (null != context) {
-            Glide.with(context).load(url).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).thumbnail(thumbnail).crossFade().into(container);
+            Glide.with(context).load(url).error(R.mipmap.plugin_camera_no_pictures).placeholder(R.mipmap.plugin_camera_no_pictures).dontAnimate().thumbnail(thumbnail).crossFade().into(container);
         }
     }
 

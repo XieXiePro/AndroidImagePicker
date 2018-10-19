@@ -3,7 +3,7 @@
     android:id="@+id/id_common_back"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="@color/color_primary"
     android:orientation="vertical">
 
     <RelativeLayout

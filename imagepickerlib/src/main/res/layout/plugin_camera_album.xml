@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary">
+        android:background="@color/color_primary">
 
         <FrameLayout
             android:id="@+id/focus_preview"
@@ -37,13 +37,20 @@
             android:id="@+id/focus_ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_orange_round_fill_nomal">
 
             <TextView
                 android:id="@+id/ok_button"
-                style="@style/btn_orange_round_fill_style"
-                android:text="完成" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="完成"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
         </FrameLayout>
     </RelativeLayout>
 

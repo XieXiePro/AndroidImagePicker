@@ -35,11 +35,11 @@
     <style name="dialog_list_item_txt">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/color_primary</item>
         <item name="android:textSize">16sp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">10dp</item>
-        <item name="android:background">@color/colorAccent</item>
+        <item name="android:background">@color/color_accent</item>
     </style>
 </resources>

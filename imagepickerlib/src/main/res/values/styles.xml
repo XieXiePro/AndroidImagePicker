@@ -29,7 +29,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="title_main_txt">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/color_accent</item>
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
     </style>
