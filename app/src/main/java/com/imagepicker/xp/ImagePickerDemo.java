@@ -63,7 +63,7 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
     }
 
     @Override
-    public void setSelectDialog(View imagePickerView) {
+    public void setSelectDialog(int selectType,View imagePickerView) {
         idImagePickerContainer = (ImagePickerLayout) imagePickerView;
         setSelectDialogListeners(new View.OnClickListener() {
             @Override

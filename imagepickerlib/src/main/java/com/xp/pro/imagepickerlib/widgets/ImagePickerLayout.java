@@ -14,8 +14,6 @@ import com.xp.pro.imagepickerlib.R;
 import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.utils.DisplayUtil;
 import com.xp.pro.imagepickerlib.utils.ImageLoader;
-import com.xp.pro.imagepickerlib.utils.PhotoFileUtils;
-import com.xp.pro.imagepickerlib.utils.ThreadUtils;
 
 import java.util.ArrayList;
 
@@ -35,6 +33,7 @@ public class ImagePickerLayout extends LinearLayout {
     TextView imagePickerTitleTv;
     TextView imagePickerTipTv;
     View photoView;
+
     /**
      * 每行展示图片数，默认3张
      */
@@ -62,9 +61,13 @@ public class ImagePickerLayout extends LinearLayout {
     private boolean olnyViewMode;
 
     private ImagePicker imagePicker;
+    /**
+     * 拍照或相册选择类型:0:既可拍照，又可选择相册，1：只可拍照,2:只可选择相册
+     */
+    private int selectType = 0;
 
     public interface ImagePicker {
-        void setSelectDialog(View imagePickerView);
+        void setSelectDialog(int selectType, View imagePickerView);
 
         void toPhotoPreview(int index, ArrayList<ImageItem> mImageselectList);
     }
@@ -86,6 +89,14 @@ public class ImagePickerLayout extends LinearLayout {
         super(context, attrs, defStyle);
         this.context = context;
         init(context);
+    }
+
+    public int getSelectType() {
+        return selectType;
+    }
+
+    public void setSelectType(int selectType) {
+        this.selectType = selectType;
     }
 
     public boolean isOlnyViewMode() {
@@ -171,7 +182,7 @@ public class ImagePickerLayout extends LinearLayout {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(mPhotoItemWidth, mPhotoItemWidth + 10);
         photoView = LayoutInflater.from(context).inflate(R.layout.item_picker_grid, null);
         ImageView addImage = (ImageView) photoView.findViewById(R.id.item_grid_img);
-        addImage.setImageResource(R.mipmap.icon_publish_bt);
+        addImage.setImageResource(R.mipmap.icon_add_img);
         View imageLayout = photoView.findViewById(R.id.item_grid_img_layout);
         ImageView deleteImage = (ImageView) photoView.findViewById(R.id.item_grid_img_delete);
         deleteImage.setVisibility(View.GONE);
@@ -185,7 +196,7 @@ public class ImagePickerLayout extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (null != imagePickerView) {
-                    imagePicker.setSelectDialog(imagePickerView);
+                    imagePicker.setSelectDialog(selectType, imagePickerView);
                 }
             }
         });
