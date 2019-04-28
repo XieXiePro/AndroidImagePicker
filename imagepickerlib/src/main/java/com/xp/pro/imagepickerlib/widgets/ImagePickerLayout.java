@@ -30,6 +30,7 @@ public class ImagePickerLayout extends LinearLayout {
     private String title;
     private String tip;
     FixGridLayout imagePickerContainer;
+    TextView imagePickerNeedTv;
     TextView imagePickerTitleTv;
     TextView imagePickerTipTv;
     View photoView;
@@ -149,6 +150,10 @@ public class ImagePickerLayout extends LinearLayout {
         imagePickerTipTv.setVisibility(visibility);
     }
 
+    public void setNeedVisibility(int visibility) {
+        imagePickerNeedTv.setVisibility(visibility);
+    }
+
     public ImagePicker getImagePicker() {
         return imagePicker;
     }
@@ -196,7 +201,7 @@ public class ImagePickerLayout extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (null != imagePickerView) {
-                    imagePicker.setSelectDialog(selectType, imagePickerView);
+                    imagePicker.setSelectDialog(getSelectType(), imagePickerView);
                 }
             }
         });
@@ -205,6 +210,7 @@ public class ImagePickerLayout extends LinearLayout {
 
     private void init(Context context) {
         View layout = LayoutInflater.from(context).inflate(R.layout.image_picker_layout, this, true);
+        imagePickerNeedTv = (TextView) layout.findViewById(R.id.image_picker_need_tv);
         imagePickerTitleTv = (TextView) layout.findViewById(R.id.image_picker_title_tv);
         imagePickerTipTv = (TextView) layout.findViewById(R.id.image_picker_tip_tv);
         //setPhotoLayout

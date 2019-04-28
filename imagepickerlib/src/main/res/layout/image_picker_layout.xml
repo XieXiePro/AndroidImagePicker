@@ -11,6 +11,17 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/image_picker_need_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:textColor="#FF3C3C"
+            android:text="*"
+            android:textSize="13sp"
+            android:visibility="gone"/>
+
+        <TextView
             android:id="@+id/image_picker_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
