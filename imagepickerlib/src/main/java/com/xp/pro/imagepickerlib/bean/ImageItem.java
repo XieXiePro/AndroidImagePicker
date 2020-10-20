@@ -21,7 +21,10 @@ public class ImageItem implements Serializable, Parcelable {
     public int type;
     public Uri uri;
     public boolean isSelected = false;
-
+    /**
+     * 是否可修改模式：true:无法单张修改或删除 可单张修改，
+     */
+    private boolean singleModify;
 
     public Uri getUri() {
         return uri;
@@ -87,6 +90,14 @@ public class ImageItem implements Serializable, Parcelable {
         isMark = mark;
     }
 
+    public boolean isSingleModify() {
+        return singleModify;
+    }
+
+    public void setSingleModify(boolean singleModify) {
+        this.singleModify = singleModify;
+    }
+
     public ImageItem() {
     }
 
@@ -105,6 +116,7 @@ public class ImageItem implements Serializable, Parcelable {
         dest.writeParcelable(this.uri, flags);
         dest.writeByte(this.isMark ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isSelected ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.singleModify ? (byte) 1 : (byte) 0);
     }
 
     protected ImageItem(Parcel in) {
@@ -116,6 +128,7 @@ public class ImageItem implements Serializable, Parcelable {
         this.uri = in.readParcelable(Uri.class.getClassLoader());
         this.isMark = in.readByte() != 0;
         this.isSelected = in.readByte() != 0;
+        this.singleModify = in.readByte() != 0;
     }
 
     public static final Creator<ImageItem> CREATOR = new Creator<ImageItem>() {
@@ -141,6 +154,7 @@ public class ImageItem implements Serializable, Parcelable {
                 ", type=" + type +
                 ", uri=" + uri +
                 ", isSelected=" + isSelected +
+                ", singleModify=" + singleModify +
                 '}';
     }
 }

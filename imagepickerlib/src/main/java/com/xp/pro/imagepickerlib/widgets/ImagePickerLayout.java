@@ -191,6 +191,7 @@ public class ImagePickerLayout extends LinearLayout {
         View imageLayout = photoView.findViewById(R.id.item_grid_img_layout);
         ImageView deleteImage = (ImageView) photoView.findViewById(R.id.item_grid_img_delete);
         deleteImage.setVisibility(View.GONE);
+
         if (isOlnyViewMode()) {
             imageLayout.setVisibility(View.GONE);
         } else {
@@ -292,7 +293,7 @@ public class ImagePickerLayout extends LinearLayout {
         });
 
         ImageView deleteImage = (ImageView) photoView.findViewById(R.id.item_grid_img_delete);
-        if (isOlnyViewMode()) {
+        if (isOlnyViewMode() || imageItem.isSingleModify()) {
             deleteImage.setVisibility(View.GONE);
         } else {
             deleteImage.setVisibility(View.VISIBLE);

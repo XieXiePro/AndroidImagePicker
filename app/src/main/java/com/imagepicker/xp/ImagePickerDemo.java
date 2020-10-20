@@ -2,6 +2,7 @@ package com.imagepicker.xp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.xp.pro.imagepickerlib.bean.ImageItem;
 import com.xp.pro.imagepickerlib.global.Params;
 import com.xp.pro.imagepickerlib.widgets.ImagePickerLayout;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePickerLayout.ImagePicker {
@@ -52,6 +54,16 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
 
     private void setImagePickerOther() {
         ArrayList<ImageItem> mOtherImageselectList = new ArrayList<>();
+        //获取已上传图片
+        String image = "http://img.wgmf.com/20164_ContractImg_2020-09-28_20:04:34_2709";
+        ImageItem item = new ImageItem();
+        item.setImgneturl(image);
+        item.setImagePath(image);
+        item.setImageId(image);
+        item.setUri(Uri.fromFile(new File(image)));
+        item.setType(1);
+        item.setSingleModify(true);
+        mOtherImageselectList.add(item);
         idImagePickerContainerOther = (ImagePickerLayout) findViewById(R.id.id_image_picker_container_other);
         idImagePickerContainerOther.setTitle("其它图片");
         idImagePickerContainerOther.setTip("(最多1张)");
@@ -63,7 +75,7 @@ public class ImagePickerDemo extends ImagePickerBaseActivity implements ImagePic
     }
 
     @Override
-    public void setSelectDialog(int selectType,View imagePickerView) {
+    public void setSelectDialog(int selectType, View imagePickerView) {
         idImagePickerContainer = (ImagePickerLayout) imagePickerView;
         setSelectDialogListeners(new View.OnClickListener() {
             @Override
